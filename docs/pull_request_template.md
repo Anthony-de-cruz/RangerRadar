@@ -1,5 +1,11 @@
-# Pull Request
+## Pull Request
+- [ ] I am confident in the code quality
+- [ ] I have tested my changes locally
+- [ ] If it is a core feature, I have added additional tests
+- [ ] Docs have been added / updated (for bug fixes / features)
 
-### Description
+### Ticket/Issue link
 
-### Additional Comments
+### Describe your changes
+
+### Additional comments
