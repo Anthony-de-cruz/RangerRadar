@@ -1,6 +1,6 @@
 version: "3"
 services:
-  node:
+  rr-frontend:
     container_name: rr-node
     build: node/
     volumes:
@@ -10,13 +10,15 @@ services:
       - "8080:8080"
     environment:
       PORT: 8080
-  db:
+    # Ensure that postgres is running before starting up node
+    depends_on:
+      rr-db:
+        condition: service_healthy
+  rr-db:
     container_name: rr-postgres
     image: postgres
     restart: always
-
-    # set shared memory limit when using docker-compose
-    shm_size: 128mb
+    shm_size: 128mb # set shared memory limit when using docker-compose
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -26,3 +28,8 @@ services:
     volumes:
       - ./postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
       - ./postgres/scripts:/scripts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER"]
+      interval: 1s
+      retries: 5
+      timeout: 2s
