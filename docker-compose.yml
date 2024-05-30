@@ -1,0 +1,28 @@
+version: "3"
+services:
+  node:
+    container_name: rr-node
+    build: node/
+    volumes:
+      - ./node:/node
+      - /node/node_modules # Remove this if you have pure JS dependencies
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+  db:
+    container_name: rr-postgres
+    image: postgres
+    restart: always
+
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - ./postgres/scripts:/scripts
