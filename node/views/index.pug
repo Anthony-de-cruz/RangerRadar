@@ -1,5 +1,137 @@
 extends layout
-
 block content
-  h1= title
-  p Welcome to #{title}
+    head
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel="stylesheet", href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=", crossorigin="")
+        script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", crossorigin="") 
+    body
+        br
+        h2#currentTargetInfo Current mode: registering mines
+        button#currentTargetButton Change modes
+        button#showVillageButton Show village on map
+        br 
+        br
+        form
+            label(for='Lat')
+            input#latBox(type='text' name='Lat' placeholder='Enter lat coords here' required='')
+            br
+            label(for='Long')
+            input#longBox(type='text' name='Long' placeholder='Enter long coords here' required='')
+            br
+            br
+            button#submitDetailsButton Register
+            br
+            br
+        div#map
+        script.
+            
+            let currentTarget = "registering mines";
+
+            function changeTarget(){
+                if (currentTarget === "registering mines"){
+                    currentTarget = "registering poaching";
+                } else if (currentTarget === "registering poaching"){
+                    currentTarget = "fetching coordinates";
+                } else{
+                    currentTarget = "registering mines";
+                }
+                let currentTargetInfo = document.getElementById("currentTargetInfo");
+                currentTargetInfo.textContent = `Current mode: ${currentTarget}`;
+            }
+
+            let currentTargetButton = document.getElementById("currentTargetButton");
+            currentTargetButton.addEventListener("click",changeTarget);
+
+            function showVillage(){
+              let popup = L.popup();
+              popup
+              .setLatLng([12.577758601317383, 106.93490646676959])
+              .setContent(`Village centre`)
+              .openOn(map);
+            }
+
+            let showVillageButton = document.getElementById("showVillageButton");
+            showVillageButton.addEventListener("click",showVillage);
+
+            function registerSubmission(){
+              event.preventDefault(); //stops page from reloading when submitting a form
+              let latBox = document.getElementById("latBox");
+              let longBox = document.getElementById("longBox");
+              let latCoords = latBox.value;
+              let longCoords = longBox.value;
+
+              if (!latCoords || !longCoords || latCoords >= 13 || latCoords < 12 || longCoords >= 108 || longCoords < 106){
+                if (!latCoords || !longCoords){
+                  latCoords = 12.577758601317383;
+                  longCoords = 106.93490646676959;
+                }
+                let popup = L.popup();
+                popup
+                .setLatLng([latCoords, longCoords])
+                .setContent(`Please choose valid coordinates`)
+                .openOn(map); 
+
+              } else{
+                  if (currentTarget === "registering mines"){
+                    let marker = L.marker([latCoords,longCoords]).addTo(map)
+                    .bindPopup('Mine here')
+                    .openPopup();  
+                    marker._icon.classList.add("red");
+
+                  } else if (currentTarget === "registering poaching"){
+                      L.marker([latCoords,longCoords]).addTo(map)
+                      .bindPopup('Poaching here')
+                      .openPopup();
+
+                  } else{
+                      let popup = L.popup();
+                      popup
+                      .setLatLng([latCoords, longCoords])
+                      .setContent(`Please choose to register either poaching or mines`)
+                      .openOn(map);
+                  }
+              }
+            }
+
+            let submitDetailsButton = document.getElementById("submitDetailsButton");
+            submitDetailsButton.addEventListener("click",registerSubmission);
+
+            let map = L.map('map').setView([12.577758601317383, 106.93490646676959], 13);
+            L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+                        maxZoom: 20,
+                        subdomains:['mt0','mt1','mt2','mt3']
+                        })
+            .addTo(map);
+
+            function onMapClick(e) {
+              if (e.latlng.lat >= 13 || e.latlng.lat < 12 || e.latlng.lng >= 108 || e.latlng.lng < 106){
+                let popup = L.popup();
+                popup
+                .setLatLng(e.latlng)
+                .setContent(`Please choose a valid location`)
+                .openOn(map);
+              } else{
+                  if (currentTarget === "registering mines"){
+                    let marker = L.marker(e.latlng)
+                    .addTo(map)
+                    .bindPopup('Mine here')
+                    .openPopup();  
+                    marker._icon.classList.add("red");
+
+                  } else if (currentTarget === "registering poaching"){
+                      L.marker(e.latlng)
+                      .addTo(map)
+                      .bindPopup('Poaching here')
+                      .openPopup();
+
+                  } else{
+                      let popup = L.popup();
+                      popup
+                      .setLatLng(e.latlng)
+                      .setContent(`Lat: ${e.latlng.lat} / Long: ${e.latlng.lng}`)
+                      .openOn(map);
+                  }
+              }
+            }
+
+            map.on('click', onMapClick);

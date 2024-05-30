@@ -6,3 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+
+#map 
+{ 
+  height: 500px; 
+}
+
+.red
+{ 
+    filter: hue-rotate(497deg); 
+}
