@@ -31,7 +31,6 @@ Note that `docker-compose` is outdated, though still shows up on a lot of tutori
 Which should result in output similar to this trimmed down reading:
 
 ```sh
-WARN[0000] /home/anthonydecruz/University/Second Year/Synoptic Project/RangerRadar/docker-compose.yml: `version` is obsolete
 [+] Running 15/15
  ✔ rr-db Pulled
    ✔ 09f376ebb190 Pull complete
