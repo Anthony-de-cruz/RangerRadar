@@ -1,8 +1,32 @@
 -- !psql
 
+CREATE TYPE report_severity AS ENUM ('low', 'moderate', 'high');
+
+CREATE TYPE report_type AS ENUM ('ewr', 'poaching', 'logging');
+
 CREATE TABLE IF NOT EXISTS staff
 (
-    username     VARCHAR(20)           NOT NULL,
-    password     VARCHAR(20)           NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    password VARCHAR(20) NOT NULL,
     PRIMARY KEY (username)
+);
+
+CREATE TABLE IF NOT EXISTS report
+(
+    id             INTEGER                             NOT NULL,
+    report_type    REPORT_TYPE                         NOT NULL,
+    severity       REPORT_SEVERITY                     NOT NULL,
+    time_of_report TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    latitude       FLOAT                               NOT NULL,
+    longitude      FLOAT                               NOT NULL,
+    resolved       BOOLEAN   DEFAULT FALSE             NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS poi
+(
+    name      VARCHAR(255) NOT NULL,
+    latitude  FLOAT        NOT NULL,
+    longitude FLOAT        NOT NULL,
+    PRIMARY KEY (name)
 );
