@@ -1,6 +1,6 @@
 -- !psql
 
-CREATE TYPE report_type AS ENUM ('ewr', 'poaching', 'logging');
+CREATE TYPE report_type AS ENUM ('erw', 'poaching', 'logging');
 
 CREATE TYPE report_severity AS ENUM ('low', 'moderate', 'high');
 
