@@ -125,3 +125,7 @@ $ docker run -e PORT=8080 -d -p 8080:8080 rr-node
 #### Things to keep in mind
 
 ## Development notes
+
+### Project Styling
+
+Following the [google style guide for js](https://google.github.io/styleguide/jsguide.html).
