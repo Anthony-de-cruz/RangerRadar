@@ -1,23 +1,23 @@
 var pg = require("pg");
 const { Pool } = pg;
 
-// To be replaced with environment variables
-const pool = new Pool({
-  host: "rr-postgres",
-  user: "postgres",
-  password: "password",
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
-});
-
 class DatabaseController {
+  // To be configured with environment variables in the future
+  static pool = new Pool({
+    host: "rr-postgres",
+    user: "postgres",
+    password: "password",
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000,
+  });
+
   /**
    * Query the database, and log it to console
    */
   static async query(text, params) {
     const start = Date.now();
-    const res = await pool.query(text, params);
+    const res = await this.pool.query(text, params);
     const duration = Date.now() - start;
     console.log("executed query", {
       text,
