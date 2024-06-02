@@ -9,7 +9,7 @@ var smsController = require("./controllers/smsController");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-const DatabaseController = require("./controllers/databaseController");
+var inboundSmsRouter = require("./routes/users");
 
 var app = express();
 
@@ -27,7 +27,7 @@ databaseController.testConnection();
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-
+app.use("/webhooks/inbound-sms", inboundSmsRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

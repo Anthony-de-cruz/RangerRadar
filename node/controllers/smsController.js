@@ -33,6 +33,16 @@ class SmsController {
         console.error(err);
       });
   }
+
+  /**
+   *
+   *
+   */
+  static handleInboundSms(request, response) {
+    const params = Object.assign(request.query, request.body);
+    console.log(params);
+    response.status(204).send();
+  }
 }
 
 module.exports = SmsController;
