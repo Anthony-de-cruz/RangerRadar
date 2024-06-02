@@ -2,3 +2,5 @@
 .obsidian/
 .idea/
 *.code-workspace
+
+.env
