@@ -10,6 +10,8 @@ services:
       - "8080:8080"
     environment:
       PORT: 8080
+      VONAGE_API_KEY: ${VONAGE_API_KEY}
+      VONAGE_API_SECRET: ${VONAGE_API_SECRET}
     # Ensure that postgres is running before starting up node
     depends_on:
       rr-db:
