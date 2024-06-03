@@ -1,8 +1,14 @@
 version: "3"
+
+secrets:
+  ngrok-auth-token.yml:
+    file: ./ngrok/ngrok-auth-token.yml
+
 services:
   rr-frontend:
     container_name: rr-node
     build: node/
+    restart: unless-stopped
     volumes:
       - ./node:/node
       - /node/node_modules # Remove this if you have pure JS dependencies
@@ -16,10 +22,36 @@ services:
     depends_on:
       rr-db:
         condition: service_healthy
+
+  # Exists to expose our web server to the internet to recieve SMS reports
+  # Only runs with the http_tunnel profile and only needs to be up when
+  # you are working on this feature
+  rr-http-tunnel:
+    container_name: rr-ngrok
+    image: ngrok/ngrok:latest
+    #restart: unless-stopped
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml,/run/secrets/ngrok-auth-token.yml"
+    profiles: [http_tunnel]
+    links:
+      - "rr-frontend:web-service"
+    ports:
+      - "4040:4040"
+    secrets:
+      - ngrok-auth-token.yml
+    volumes:
+      - ./ngrok/ngrok.yml:/etc/ngrok.yml
+    depends_on:
+      rr-frontend:
+        condition: service_started
+
   rr-db:
     container_name: rr-postgres
     image: postgres
-    restart: always
+    restart: unless-stopped
     shm_size: 128mb # set shared memory limit when using docker-compose
     environment:
       POSTGRES_USER: postgres
