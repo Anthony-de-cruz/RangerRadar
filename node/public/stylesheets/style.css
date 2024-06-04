@@ -14,5 +14,24 @@ a {
 
 .red
 { 
-    filter: hue-rotate(497deg); 
+    filter: hue-rotate(130deg); 
+}
+
+.purple
+{ 
+    filter: hue-rotate(60deg); 
+}
+
+.yellow
+{ 
+    filter: hue-rotate(210deg); 
+}
+
+select {
+  font-family: 'FontAwesome 5 Free', 'sans-serif';
+}
+
+@font-face {
+  font-family: "FontAwesome 5 Free";
+  src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0");
 }
