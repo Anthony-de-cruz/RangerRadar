@@ -10,6 +10,8 @@ var smsController = require("./controllers/smsController");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var inboundSmsRouter = require("./routes/users");
+var mapRouter = require("./routes/map");
+
 
 var app = express();
 
@@ -25,7 +27,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 databaseController.testConnection();
 
-app.use("/", indexRouter);
+//Default path will need to be changed eventually.
+//If you alter the paths here, you'll need to terminate 
+//the docker connection and boot it back up again for your
+//changes to take effect. 
+//Route changes will also require you to change the
+//corresponding route files
+app.use("/", mapRouter);
 app.use("/users", usersRouter);
 app.use("/webhooks/inbound-sms", inboundSmsRouter);
 // catch 404 and forward to error handler
