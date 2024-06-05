@@ -1,5 +1,6 @@
 const { Vonage } = require("@vonage/server-sdk");
 
+const DatabaseController = require("../controllers/databaseController");
 const { Report } = require("../models/report");
 
 class SmsController {
@@ -41,18 +42,63 @@ class SmsController {
      * Middleware to handle incoming SMS http requests from Vonage. Builds a
      * Report from the text and inserts it into the database.
      */
-    static handleInboundSms(request, response) {
+    static async handleInboundSms(request, response) {
         const params = Object.assign(request.query, request.body);
-        console.log("Inbound SMS:", params);
         try {
+            await SmsController.logInboundSms(params);
             var new_report = Report.buildFromString(params.text);
-            console.log(new_report);
-            new_report.insertIntoDb();
-        } catch (exception) {
-            console.error(exception);
+            console.log("Generated report:", new_report);
+            await new_report.insertIntoDb();
+        } catch (err) {
+            console.error("Exception in handling sms:", err);
         }
         response.status(204).send();
     }
+
+    /**
+     * Log
+     *
+     */
+    static async logInboundSms(text) {
+        console.log("Inbound SMS:", text);
+        try {
+            const result = await DatabaseController.query(
+                `INSERT INTO sms_messages 
+            (msisdn, 
+                recipient, 
+                api_message_id,
+                text, 
+                type,
+                keyword, 
+                api_key, 
+                message_timestamp) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+                Object.values(text),
+            );
+        } catch (err) {
+            throw err;
+        }
+    }
 }
+// Inbound SMS: {
+//   msisdn: '11000000000',
+//   to: '11000000000',
+//   messageId: 'ABCDEF0123456789',
+//   text: 'logging\nlow\n1.1\n1.2',
+//   type: 'text',
+//   keyword: 'LOGGING\nLOW\n1.1\n1.2',
+//   'api-key': 'your-key',
+//   'message-timestamp': '2024-06-05 13:53:25'
+// }
+
+// curl -G 'http://localhost:8080/webhooks/inbound-sms' \
+//   --data-urlencode 'msisdn=110000000000' \
+//   --data-urlencode 'to=110000000000' \
+//   --data-urlencode 'messageId=ABCDEF0123456789' \
+//   --data-urlencode $'text=logging\nlow\n1.1\n1.1' \
+//   --data-urlencode 'type=text' \
+//   --data-urlencode $'keyword=LOGGING\nLOW\n1.1\n1.1' \
+//   --data-urlencode 'api-key=api-key' \
+//   --data-urlencode 'message-timestamp=2024-06-05+13:53:25'
 
 module.exports = SmsController;
