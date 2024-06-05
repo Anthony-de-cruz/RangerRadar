@@ -1,37 +1,38 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font:
+        14px "Lucida Grande",
+        Helvetica,
+        Arial,
+        sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00b7ff;
 }
 
-#map 
-{ 
-  height: 500px; 
+#map {
+    height: 500px;
 }
 
-.red
-{ 
-    filter: hue-rotate(130deg); 
+.red {
+    filter: hue-rotate(130deg);
 }
 
-.purple
-{ 
-    filter: hue-rotate(60deg); 
+.purple {
+    filter: hue-rotate(60deg);
 }
 
-.yellow
-{ 
-    filter: hue-rotate(210deg); 
+.yellow {
+    filter: hue-rotate(210deg);
 }
 
 select {
-  font-family: 'FontAwesome 5 Free', 'sans-serif';
+    font-family: "FontAwesome 5 Free", "sans-serif";
 }
 
 @font-face {
-  font-family: "FontAwesome 5 Free";
-  src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0");
+    font-family: "FontAwesome 5 Free";
+    src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0");
 }
+
