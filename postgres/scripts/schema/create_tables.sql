@@ -1,6 +1,6 @@
 -- !psql
 
-CREATE TYPE report_type AS ENUM ('erw', 'poaching', 'logging');
+CREATE TYPE report_type AS ENUM ('erw', 'poaching', 'mining', 'logging');
 
 CREATE TYPE report_severity AS ENUM ('low', 'moderate', 'high');
 
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS staff
 (
     username     VARCHAR(20) NOT NULL,
     password     VARCHAR(20) NOT NULL,
-    phone_number VARCHAR(10) NOT NULL,
+    phone_number VARCHAR(12) NOT NULL,
     PRIMARY KEY (username)
 );
 
@@ -30,4 +30,9 @@ CREATE TABLE IF NOT EXISTS poi
     latitude  FLOAT        NOT NULL,
     longitude FLOAT        NOT NULL,
     PRIMARY KEY (name)
+);
+
+CREATE TABLE IF NOT EXISTS sms_messages (
+    message_id VARCHAR(16) NOT NULL,
+    msisdn: VARCHAR(12)
 );
