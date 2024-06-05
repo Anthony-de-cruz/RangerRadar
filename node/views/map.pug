@@ -12,12 +12,12 @@ block content
         button#showVillageButton Show village on map
         br 
         br
-        form
-            label(for='Lat') Lat: 
-            input#latBox(type='text' name='Lat' placeholder='Enter lat coords here' required='')
+        form(action='/manual-form' method='POST')
+            label(for='lat') Lat: 
+            input#latBox(type='text' name='lat' placeholder='Enter lat coords here' required='')
             br
-            label(for='Lng') Lng:  
-            input#lngBox(type='text' name='Lng' placeholder='Enter lng coords here' required='')
+            label(for='lng') Lng:  
+            input#lngBox(type='text' name='lng' placeholder='Enter lng coords here' required='')
             br
             input(type='radio' id='formERW' name='formType')
             label(for='formERW')
@@ -35,8 +35,8 @@ block content
             label(for='formLogging')
               i(class="fa-solid fa-tree fa-fw fa-5x")
             br
-            button#manualFormSubmitButton 
-              i(class='fa-solid fa-check')
+            button#manualFormSubmitButton(type='submit') 
+              i( class='fa-solid fa-check')
             br
             br
         div#map

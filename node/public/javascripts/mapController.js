@@ -118,7 +118,7 @@ let manualFormSubmitButton = document.getElementById("manualFormSubmitButton");
 //handles the response for when the user inputs the coords manually in the top form
 manualFormSubmitButton.addEventListener("click", (e) => {
     //stops the page from reloading when submitting a form
-    e.preventDefault();
+    // e.preventDefault();
     const lat = document.getElementById("latBox").value;
     const lng = document.getElementById("lngBox").value;
     //Coordinate restrictions for the markers.

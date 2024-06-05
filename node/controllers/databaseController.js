@@ -17,7 +17,7 @@ class DatabaseController {
      */
     static async query(text, params) {
         const start = Date.now();
-        const res = await this.pool.query(text, params);
+        const res = await DatabaseController.pool.query(text, params);
         const duration = Date.now() - start;
         console.log("executed query", {
             text,

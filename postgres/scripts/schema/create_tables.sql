@@ -31,3 +31,5 @@ CREATE TABLE IF NOT EXISTS poi
     longitude FLOAT        NOT NULL,
     PRIMARY KEY (name)
 );
+
+SELECT * FROM report;
