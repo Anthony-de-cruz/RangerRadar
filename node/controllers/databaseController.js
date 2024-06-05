@@ -16,16 +16,28 @@ class DatabaseController {
      * Query the database, and log it to console
      */
     static async query(text, params) {
-        const start = Date.now();
-        const res = await this.pool.query(text, params);
-        const duration = Date.now() - start;
-        console.log("executed query", {
-            text,
-            params,
-            duration,
-            rows: res.rowCount,
-        });
-        return res;
+        try {
+            const start = Date.now();
+            var res = await this.pool.query(text, params);
+
+            const duration = Date.now() - start;
+            console.log("executed query", {
+                text,
+                params,
+                duration,
+                rows: res.rowCount,
+            });
+            return res;
+        } catch (err) {
+            // Duplicate error code
+            if (err.code === "23505") {
+                console.error("Duplicate key error:", err.detail);
+                throw new Error("Duplicate entry detected");
+            } else {
+                console.error("Database query error:", err);
+                throw err;
+            }
+        }
     }
 
     /**
