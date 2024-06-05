@@ -2,6 +2,7 @@
 .obsidian/
 .idea/
 *.code-workspace
+*.DS_Store
 
 .env
 /ngrok/ngrok-auth-token.yml
