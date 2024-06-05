@@ -1,7 +1,10 @@
 const { Vonage } = require("@vonage/server-sdk");
 
+const { Report } = require("../models/report");
+
 class SmsController {
     /**
+     * Vonage API details
      */
     static vonage = new Vonage({
         apiKey: process.env.VONAGE_API_KEY,
@@ -35,12 +38,19 @@ class SmsController {
     }
 
     /**
-     *
-     *
+     * Middleware to handle incoming SMS http requests from Vonage. Builds a
+     * Report from the text and inserts it into the database.
      */
     static handleInboundSms(request, response) {
         const params = Object.assign(request.query, request.body);
-        console.log(params);
+        console.log("Inbound SMS:", params);
+        try {
+            var new_report = Report.buildFromString(params.text);
+            console.log(new_report);
+            new_report.insertIntoDb();
+        } catch (exception) {
+            console.error(exception);
+        }
         response.status(204).send();
     }
 }
