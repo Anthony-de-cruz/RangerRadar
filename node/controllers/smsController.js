@@ -41,6 +41,18 @@ class SmsController {
     /**
      * Middleware to handle incoming SMS http requests from Vonage. Builds a
      * Report from the text and inserts it into the database.
+     *
+     * An SMS text http request can be synthesised with the following:
+     * @example
+     * curl -G 'http://localhost:8080/webhooks/inbound-sms' \
+     *   --data-urlencode 'msisdn=110000000000' \
+     *   --data-urlencode 'to=110000000000' \
+     *   --data-urlencode 'messageId=ABCDEF0123456789' \
+     *   --data-urlencode $'text=logging\nlow\n1.1\n1.1' \
+     *   --data-urlencode 'type=text' \
+     *   --data-urlencode $'keyword=LOGGING\nLOW\n1.1\n1.1' \
+     *   --data-urlencode 'api-key=api-key' \
+     *   --data-urlencode 'message-timestamp=2024-06-05+13:53:25'
      */
     static async handleInboundSms(request, response) {
         const params = Object.assign(request.query, request.body);
@@ -56,7 +68,22 @@ class SmsController {
     }
 
     /**
-     * Log
+     * Save the SMS message to the database. The text is expected in json format
+     * as:
+     *
+     *
+     * @example
+     *
+     * SmsController.loInboundSms({
+     *      msisdn: '11000000000',
+     *      to: '11000000000',
+     *      messageId: 'ABCDEF0123456789',
+     *      text: 'logging\nlow\n1.1\n1.2',
+     *      type: 'text',
+     *      keyword: 'LOGGING\nLOW\n1.1\n1.2',
+     *      'api-key': 'your-key',
+     *      'message-timestamp': '2024-06-05 13:53:25'
+     * });
      *
      */
     static async logInboundSms(text) {
@@ -80,25 +107,5 @@ class SmsController {
         }
     }
 }
-// Inbound SMS: {
-//   msisdn: '11000000000',
-//   to: '11000000000',
-//   messageId: 'ABCDEF0123456789',
-//   text: 'logging\nlow\n1.1\n1.2',
-//   type: 'text',
-//   keyword: 'LOGGING\nLOW\n1.1\n1.2',
-//   'api-key': 'your-key',
-//   'message-timestamp': '2024-06-05 13:53:25'
-// }
-
-// curl -G 'http://localhost:8080/webhooks/inbound-sms' \
-//   --data-urlencode 'msisdn=110000000000' \
-//   --data-urlencode 'to=110000000000' \
-//   --data-urlencode 'messageId=ABCDEF0123456789' \
-//   --data-urlencode $'text=logging\nlow\n1.1\n1.1' \
-//   --data-urlencode 'type=text' \
-//   --data-urlencode $'keyword=LOGGING\nLOW\n1.1\n1.1' \
-//   --data-urlencode 'api-key=api-key' \
-//   --data-urlencode 'message-timestamp=2024-06-05+13:53:25'
 
 module.exports = SmsController;

@@ -14,6 +14,9 @@ class DatabaseController {
 
     /**
      * Query the database, and log it to console
+     *
+     * @returns The database query result as a pg.QueryArrayResult<any[]>
+     * @throws When an invalid query is passed
      */
     static async query(text, params) {
         try {
@@ -42,14 +45,17 @@ class DatabaseController {
 
     /**
      * Perform an empty query to test the database connection
+     * @returns Test success boolean
      */
     static async testConnection() {
         console.log("EXECUTING TEST QUERY");
         const result = await DatabaseController.query("SELECT 1 AS res;");
         if (result.rowCount == 1 && result.rows[0].res == 1) {
             console.log("TEST QUERY SUCCESSFUL");
+            return true;
         } else {
             console.error("Unexpected database response: ", result);
+            return false;
         }
     }
 }
