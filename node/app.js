@@ -11,6 +11,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var inboundSmsRouter = require("./routes/users");
 var mapRouter = require("./routes/map");
+var registerRouter = require("./routes/register");
 
 var app = express();
 
@@ -34,6 +35,7 @@ databaseController.testConnection();
 //corresponding route files
 app.use("/", mapRouter);
 app.use("/users", usersRouter);
+app.use("/register", registerRouter);
 app.use("/webhooks/inbound-sms", inboundSmsRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
