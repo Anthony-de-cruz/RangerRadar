@@ -75,11 +75,10 @@ class Report {
     /**
      * Insert this report instance into the database.
      *
-     * @returns The DatabaseController.query() result
      * @throws Will bubble up any errors from DatabaseController.query()
      */
     async insertIntoDb() {
-        return (result = await DatabaseController.query(
+        await DatabaseController.query(
             `INSERT
             INTO 
             report (report_type, severity, time_of_report, latitude, longitude) 
@@ -91,7 +90,7 @@ class Report {
                 this.latitude,
                 this.longitude,
             ],
-        ));
+        );
     }
 }
 
