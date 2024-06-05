@@ -159,13 +159,17 @@ function onMapClick(e) {
     }
     else {
         let popup = L.popup();
+        // let lat = latlng.lat;
+        // let lng = latlng.lng;
+        // console.debug(`in JS, lat is ${lat}`);
+        // console.debug(`in JS, lng is ${lng}`);
         popup
             .setLatLng(latlng)
             .setContent(`
-                <form>
-                    <p>Lat: ${latlng.lat}</p>
-                    <p>Lng: ${latlng.lng}</p>
-                    <input type='radio' id='ERW' name='popupType'></input> 
+                <form action='/map-form' method='POST'>
+                    <input type='hidden' name='lat' value='${latlng.lat}' readonly>
+                    <input type='hidden' name='lng' value='${latlng.lng}' readonly>
+                    <input type='radio' id='ERW' name='popupType' checked></input> 
                     <label for='ERW'><i class="fa-solid fa-bomb fa-fw fa-5x"></i></label>
                     <br>
                     <input type='radio' id='poaching' name='popupType'></input>
@@ -185,7 +189,7 @@ function onMapClick(e) {
         //handles the response for when the user uses the map form
         let mapFormSubmitButton = document.getElementById("mapFormSubmitButton");
         mapFormSubmitButton.addEventListener("click", (e) => {
-            e.preventDefault();
+            // e.preventDefault();
             let type;
             if (document.getElementById("ERW").checked) {
                 type = Types.ERW;

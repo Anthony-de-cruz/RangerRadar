@@ -80,7 +80,12 @@ router.post('/map-form',
     console.debug("Hello map!!!");
     const lat = req.body.lat;
     const lng = req.body.lng;
-    const type = req.body.formType;
+    console.debug(`experiment 1 ${lat[0]}`);
+    console.debug(`experiment 2 ${lat[1]}`);
+    const type = req.body.popupType;
+    console.debug(`lat is ${lat}`);
+    console.debug(`lng is ${lng}`);
+
 
     const errors = validationResult(req);
     if (!errors.isEmpty()){
