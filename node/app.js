@@ -5,12 +5,12 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var databaseController = require("./controllers/databaseController");
-var smsController = require("./controllers/smsController");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var inboundSmsRouter = require("./routes/users");
+var inboundSmsRouter = require("./routes/inboundSms");
 var mapRouter = require("./routes/map");
+var registerRouter = require("./routes/register");
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.set("view engine", "pug");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -32,9 +32,11 @@ databaseController.testConnection();
 //changes to take effect.
 //Route changes will also require you to change the
 //corresponding route files
-app.use("/", mapRouter);
+app.use("/map", mapRouter);
 app.use("/users", usersRouter);
+app.use("/register", registerRouter);
 app.use("/webhooks/inbound-sms", inboundSmsRouter);
+app.use("/index", indexRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));
