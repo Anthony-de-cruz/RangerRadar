@@ -8,7 +8,7 @@ block content
         script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", crossorigin="") 
         script(src='/javascripts/mapController.js',defer)
     body
-        h1 Ranger Radar
+        h1 Ranger Radar 
         button#showVillageButton Show village on map
         br 
         br
@@ -19,19 +19,19 @@ block content
             label(for='lng') Lng:  
             input#lngBox(type='text' name='lng' placeholder='Enter lng coords here' required='')
             br
-            input(type='radio' id='formERW' name='formType' checked)
+            input(type='radio' id='formERW' name='formType' value='erw' checked)
             label(for='formERW')
               i(class="fa-solid fa-bomb fa-fw fa-5x")
             br
-            input(type='radio' id='formPoaching' name='formType')
+            input(type='radio' id='formPoaching' name='formType' value='poaching')
             label(for='formPoaching')
               i(class="fa-solid fa-crosshairs fa-fw fa-5x")
             br 
-            input(type='radio' id='formMining' name='formType') 
+            input(type='radio' id='formMining' name='formType' value='mining') 
             label(for='formMining')
               i(class="fa-solid fa-helmet-safety fa-fw fa-5x")
             br
-            input(type='radio' id='formLogging' name='formType')
+            input(type='radio' id='formLogging' name='formType' value='logging')
             label(for='formLogging')
               i(class="fa-solid fa-tree fa-fw fa-5x")
             br
@@ -39,4 +39,7 @@ block content
               i( class='fa-solid fa-check')
             br
             br
+        //- input(type='hidden' id='reports' value='' readonly)
+        script.
+            let reportsData = !{JSON.stringify(reports)}
         div#map

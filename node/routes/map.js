@@ -4,10 +4,10 @@ const {check, validationResult} = require("express-validator");
 var database = require("../controllers/databaseController");
 const { query } = database;
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-    console.debug("Hello there");
-    res.render("map", { title: "Map" });
+/* GET map page. */
+router.get("/", async function (req, res, next) {
+    const reportData = await getReports();
+    res.render("map", { title:"Map",reports:reportData});
 });
 
 router.post('/manual-form',
@@ -34,7 +34,6 @@ router.post('/manual-form',
   }).withMessage('Lng must be in or near the village'),
   ],
   async (req,res,next)=>{
-    console.debug("Hello!!!");
     const lat = req.body.lat;
     const lng = req.body.lng;
     const type = req.body.formType;
@@ -43,14 +42,14 @@ router.post('/manual-form',
     if (!errors.isEmpty()){
       const alert = errors.array();
       console.debug(alert);
-      res.render("map",{title:"Map"});
+      res.redirect("/");
     }
     else{
       addMarkerToDatabase(type,lat,lng);
       console.debug(lat);
       console.debug(lng);
       console.debug(type);
-      res.render("map",{title:"Map"});
+      res.redirect("/");
     }
   }
 )
@@ -77,28 +76,21 @@ router.post('/map-form',
   }).withMessage('Lng must be in or near the village'),
   ],
   async (req,res,next)=>{
-    console.debug("Hello map!!!");
     const lat = req.body.lat;
     const lng = req.body.lng;
-    console.debug(`experiment 1 ${lat[0]}`);
-    console.debug(`experiment 2 ${lat[1]}`);
     const type = req.body.popupType;
-    console.debug(`lat is ${lat}`);
-    console.debug(`lng is ${lng}`);
 
 
     const errors = validationResult(req);
     if (!errors.isEmpty()){
       const alert = errors.array();
       console.debug(alert);
-      res.render("map",{title:"Map"});
+      // res.render("map",{title:"Map"});
+      res.redirect("/");
     }
     else{
       addMarkerToDatabase(type,lat,lng);
-      console.debug(lat);
-      console.debug(lng);
-      console.debug(type);
-      res.render("map",{title:"Map"});
+      res.redirect("/");
     }
   }
 )
@@ -108,11 +100,20 @@ async function addMarkerToDatabase(type, lat, lng) {
     await query(
       `INSERT INTO report (report_type,severity,latitude,longitude)
       VALUES ($1, $2, $3, $4)`,
-      ["erw","low",lat,lng]
+      [type,"low",lat,lng]
     );
     console.log(`Inserted new marker:${type},low,${lat},${lng}`);
   } catch (error) {
     throw error;
+  }
+}
+
+async function getReports() {
+  try {
+    const result = await query("SELECT * FROM report WHERE resolved=false;");
+    return result.rows;
+  } catch (error) {
+    throw new Error("Failed to fetch reports: " + error.message);
   }
 }
 

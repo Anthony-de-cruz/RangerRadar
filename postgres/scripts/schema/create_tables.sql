@@ -1,6 +1,6 @@
 -- !psql
 
-CREATE TYPE report_type AS ENUM ('erw', 'poaching', 'logging');
+CREATE TYPE report_type AS ENUM ('erw', 'poaching', 'mining', 'logging');
 
 CREATE TYPE report_severity AS ENUM ('low', 'moderate', 'high');
 
@@ -33,3 +33,5 @@ CREATE TABLE IF NOT EXISTS poi
 );
 
 SELECT * FROM report;
+
+SELECT * FROM report WHERE resolved=false;
