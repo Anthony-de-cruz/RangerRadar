@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  head
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav.navbar
+      .logo Ranger Radar
+      .nav-links
+        .nav-item Map
+        .nav-item Live Feed
+        a.nav-item(href='/register') Register
+        if loggedIn 
+          a.nav-item(href='/logout') Logout
+        else 
+          a.nav-item(href='/login') Login
+    .login-body-container
+    .login-form-container   
+        h2 Logout
+        p Are you sure you want to logout?
+        form(action='logout' method='post')
+            input(type='submit' value='Logout')
+            
+            a.navigation-link(href='/map') Back to Map
