@@ -48,7 +48,7 @@ function onMapClick(e) {
         popup
             .setLatLng(latlng)
             .setContent(`
-                <form action='/map-form' method='POST'>
+                <form action='/map/map-form' method='POST'>
                     <input type='hidden' name='lat' value='${latlng.lat}' readonly>
                     <input type='hidden' name='lng' value='${latlng.lng}' readonly>
                     <input type='radio' id='ERW' name='popupType' value='erw' checked></input> 
