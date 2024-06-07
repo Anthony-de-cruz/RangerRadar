@@ -4,7 +4,7 @@ block content
     .login-body-container
         .login-form-container
             h1 Welcome to RangerRadar
-            h2 Register
+            h2 Login
             form(action='', method='POST')
                 label(for='username') Username
                 input#username(type='text' name='username' placeholder='Username' required='')
@@ -12,10 +12,6 @@ block content
                 label(for='password') Password
                 input#password(type='password' name='password' placeholder='Password' required='')
                 br
-                label(for='phone_number') Phone Number
-                input#phone_number(type='text' name='phone_number' placeholder='00000000000' required='')
-                br
-                input(type='submit' value='Register')
-            h3 Result: #{registerResult}
+                input(type='submit' value='login')
             p
                 a.navigation-link(href='/map') Back to Map

@@ -15,6 +15,10 @@ block content
         .nav-item Map
         .nav-item Live Feed
         a.nav-item(href='/register') Register
+        a.nav-item(href='/login') Ranger Login
+        if loggedIn
+          p.nav-item Ranger Name: #{user.username}
+          
 
     div#map-container
       button#showVillageButton Show village on map
