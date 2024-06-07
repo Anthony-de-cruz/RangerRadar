@@ -45,10 +45,7 @@ router.post('/manual-form',
       res.redirect("/map");
     }
     else{
-      addMarkerToDatabase(type,lat,lng);
-      console.debug(lat);
-      console.debug(lng);
-      console.debug(type);
+      addReport(type,lat,lng);
       res.redirect("/map");
     }
   }
@@ -85,24 +82,31 @@ router.post('/map-form',
     if (!errors.isEmpty()){
       const alert = errors.array();
       console.debug(alert);
-      // res.render("map",{title:"Map"});
       res.redirect("/map");
     }
     else{
-      addMarkerToDatabase(type,lat,lng);
+      addReport(type,lat,lng);
       res.redirect("/map");
     }
   }
 )
 
-async function addMarkerToDatabase(type, lat, lng) {
+router.post('/resolve-form',
+  async (req,res,next)=>{
+    const id = req.body.id;
+    resolveReport(id);
+    res.redirect("/map");
+  }
+)
+
+async function addReport(type, lat, lng) {
   try {
     await query(
       `INSERT INTO report (report_type,severity,latitude,longitude)
       VALUES ($1, $2, $3, $4)`,
       [type,"low",lat,lng]
     );
-    console.log(`Inserted new marker:${type},low,${lat},${lng}`);
+    console.log(`Inserted new report:${type},low,${lat},${lng}`);
   } catch (error) {
     throw error;
   }
@@ -114,6 +118,14 @@ async function getReports() {
     return result.rows;
   } catch (error) {
     throw new Error("Failed to fetch reports: " + error.message);
+  }
+}
+
+async function resolveReport(id){
+  try {
+    await query("UPDATE report SET resolved=true WHERE id=$1;",[id]);
+  } catch (error) {
+    throw new Error("Failed to resolve report: " + error.message);
   }
 }
 

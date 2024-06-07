@@ -114,11 +114,14 @@ function addReportsToMap(){
         marker
             .addTo(map)
             .bindPopup(`
-                <p>Lat: ${reportsData[i].latitude}</p>
-                <p>Lng: ${reportsData[i].longitude}</p>
-                <p>${typeIcon}</p>
-                <p>Time: ${reportsData[i].time_of_report}</p>
-                <button id='removeMarkerButton' hidden>Remove</button>
+                <form action='/map/resolve-form' method='POST'>
+                    <p>Lat: ${reportsData[i].latitude}</p>
+                    <p>Lng: ${reportsData[i].longitude}</p>
+                    <p>${typeIcon}</p>
+                    <p>Time: ${reportsData[i].time_of_report}</p>
+                    <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
+                    <button type='submit'><i class='fa-solid fa-check'></i></button>
+                </form>
             `)
             .openPopup();
         //Marker needs to be added before colour can be adjusted,
@@ -139,6 +142,7 @@ function addReportsToMap(){
                 marker._icon.classList.add("yellow");
                 break;
         }
+
 //     let markerID = `marker-${idNum}`;
 //     //The created marker is added to a list of markers.
 //     //Currently, nothing is being done with this
