@@ -19,7 +19,7 @@ block content
     div#map-container
       button#showVillageButton Show village on map
       div#map
-    form#locationForm.hidden(action='/manual-form' method='POST')
+    form#locationForm.hidden(action='/map/manual-form' method='POST')
         label(for='lat') Lat: 
         input#latBox(type='text' name='lat' placeholder='Enter lat coords here' required='')
         br
