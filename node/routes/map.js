@@ -42,14 +42,14 @@ router.post('/manual-form',
     if (!errors.isEmpty()){
       const alert = errors.array();
       console.debug(alert);
-      res.redirect("/");
+      res.redirect("/map");
     }
     else{
       addMarkerToDatabase(type,lat,lng);
       console.debug(lat);
       console.debug(lng);
       console.debug(type);
-      res.redirect("/");
+      res.redirect("/map");
     }
   }
 )
@@ -86,11 +86,11 @@ router.post('/map-form',
       const alert = errors.array();
       console.debug(alert);
       // res.render("map",{title:"Map"});
-      res.redirect("/");
+      res.redirect("/map");
     }
     else{
       addMarkerToDatabase(type,lat,lng);
-      res.redirect("/");
+      res.redirect("/map");
     }
   }
 )
