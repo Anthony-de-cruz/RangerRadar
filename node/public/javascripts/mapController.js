@@ -12,7 +12,7 @@ const villageCentreCoords = [12.577758601317383, 106.93490646676959];
 //Sets up the main map. 
 //13 is the zoom level, and subdomains provide different ways 
 //to access the map data should one of them go down
-let map = L.map('map').setView(villageCentreCoords, 13);
+let map = L.map('map').setView(villageCentreCoords, 14);
 L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
@@ -27,8 +27,15 @@ function showVillage() {
     let popup = L.popup();
     popup
         .setLatLng(villageCentreCoords)
-        .setContent(`Village centre`)
+        .setContent(`
+            <div style="text-align: center;">
+                <i class="fa-solid fa-vihara" style="font-size: 24px;"></i><br>
+                Pu Nagol Community Meeting Hall
+            </div>
+        `)
         .openOn(map);
+
+        map.setView(villageCentreCoords, map.getZoom());
 }
 
 const showVillageButton = document.getElementById("showVillageButton");
