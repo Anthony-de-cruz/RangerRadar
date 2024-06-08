@@ -72,7 +72,7 @@ router.post(
         check("lat")
             .custom((value, { req }) => {
                 const min = 12;
-                const max = 13;
+                const max = 13.3;
                 const lat = parseFloat(value);
                 if (lat >= max || lat < min) {
                     throw new Error("Invalid lat coordinates");
