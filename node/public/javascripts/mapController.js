@@ -9,25 +9,25 @@ const Types = Object.freeze({
 });
 const villageCentreCoords = [12.577758601317383, 106.93490646676959];
 
-//Sets up the main map.
-//13 is the zoom level, and subdomains provide different ways
+//Sets up the main map. 
+//Subdomains provide different ways 
 //to access the map data should one of them go down
-let map = L.map("map", {
-    center: villageCentreCoords,
-    maxZoom: 20,
-    zoom: 13,
-    minZoom: 10,
+let map = L.map('map',{
+    center:villageCentreCoords,
+    maxZoom:20,
+    zoom:13,
+    minZoom:10,
 });
-
-L.tileLayer("http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}", {
+L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     minZoom: 10,
-    subdomains: ["mt0", "mt1", "mt2", "mt3"],
-}).addTo(map);
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+})
+    .addTo(map);
 
 let southWest = L.latLng(12.07, 106),
-    northEast = L.latLng(13.7, 108),
-    bounds = L.latLngBounds(southWest, northEast);
+northEast = L.latLng(13.7, 108),
+bounds = L.latLngBounds(southWest, northEast);
 map.setMaxBounds(bounds);
 
 //Places a popup on the village centre so that users
@@ -55,15 +55,8 @@ const showVillageButton = document.getElementById("showVillageButton");
 showVillageButton.addEventListener("click", showVillage);
 
 function onMapClick(e) {
-    const latlng = e.latlng;
-    if (
-        !latlng.lat ||
-        !latlng.lng ||
-        latlng.lat >= 13.3 ||
-        latlng.lat < 12 ||
-        latlng.lng >= 108 ||
-        latlng.lng < 106
-    ) {
+    const latlng = e.latlng
+    if (!latlng.lat || !latlng.lng || latlng.lat >= 13.3 || latlng.lat < 12 || latlng.lng >= 108 || latlng.lng < 106) {
         const popup = L.popup();
         popup
             .setLatLng(villageCentreCoords)
@@ -172,7 +165,8 @@ function addReportsToMap() {
                 marker._icon.classList.add("yellow");
                 break;
         }
-    }
+
+    }    
 }
 
 document.addEventListener("DOMContentLoaded", addReportsToMap);
