@@ -50,8 +50,8 @@ class Report {
      */
     static buildFromString(string) {
         var tokens = string.split("\n");
-        tokens.forEach((element) => {
-            element = element.trim().toLowerCase();
+        tokens.forEach((element, index, array) => {
+            array[index] = element.trim().toLowerCase();
         });
         var type = tokens[0];
         var severity = tokens[1];
