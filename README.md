@@ -126,6 +126,8 @@ $ docker run -e PORT=8080 -d -p 8080:8080 rr-node
 
 We are using [jest.js](https://jestjs.io/) for unit testing and [cypress](https://www.cypress.io/) for end to end testing.
 
+Since these tests are away from docker containers, remember to use `npm install` to have everything up to date.
+
 To run unit tests, simply `cd` into `node/` and run `npm test`, which should look something like this:
 
 ```sh
