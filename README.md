@@ -122,9 +122,44 @@ $ docker run -e PORT=8080 -d -p 8080:8080 rr-node
 
 ### Schema
 
-#### Things to keep in mind
+## Testing
+
+We are using [jest.js](https://jestjs.io/) for unit testing and [cypress](https://www.cypress.io/) for end to end testing.
+
+Since these tests are away from docker containers, remember to use `npm install` to have everything up to date.
+
+To run unit tests, simply `cd` into `node/` and run `npm test`, which should look something like this:
+
+```sh
+$ npm test
+> node@0.0.0 test
+> jest --verbose
+
+ PASS  jest/report.test.js
+  Report
+    ✓ is built from string correctly (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.243 s
+Ran all test suites.
+```
+
+To run the e2e tests, again `cd` into `node/` and run `npm run e2e`. Then, a cypress window should open asking you which type of tests you want to run and on what platform. The platforms available are dependent on what you have installed on your system.
+
+```sh
+$ npm run e2e
+
+> node@0.0.0 e2e
+> cypress open
+
+DevTools listening on ws://127.0.0.1:40929/devtools/browser/3f912fbb-1b63-4ff5-b135-1d94b7c2c915
+```
 
 ## Development notes
+
+#### Things to keep in mind
 
 ### Project Styling
 
