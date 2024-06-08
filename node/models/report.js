@@ -55,8 +55,8 @@ class Report {
         });
         var type = tokens[0];
         var severity = tokens[1];
-        var latitude = tokens[2];
-        var longitude = tokens[3];
+        var latitude = Number(tokens[2]);
+        var longitude = Number(tokens[3]);
 
         try {
             return new Report(
