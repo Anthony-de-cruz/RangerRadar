@@ -4,7 +4,7 @@ describe("login functionality", () => {
         cy.visit("http://localhost:8080/login");
     });
 
-    afterAll(() => {
+    afterEach(() => {
         cy.clearCookie("authToken");
     });
 
