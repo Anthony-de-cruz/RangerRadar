@@ -1,12 +1,10 @@
-const jwt = require("jsonwebtoken");
-
 describe("login functionality", () => {
     beforeEach(() => {
         cy.clearCookie("authToken");
         cy.visit("http://localhost:8080/login");
     });
 
-    afterEach(() => {
+    afterAll(() => {
         cy.clearCookie("authToken");
     });
 
