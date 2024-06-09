@@ -136,8 +136,6 @@ function formatDateTime(isoString) {
 }
 
 //Adds reports to the map.
-//Used by both the manual form and the popup form on
-//the map.
 //May need to expand this later to take in values such as
 //severity.
 function addReportsToMap() {
@@ -171,7 +169,9 @@ function addReportsToMap() {
             reportsData[i].latitude,
             reportsData[i].longitude,
         ]);
-        marker
+        //If they are logged in, give them the remove button
+        if (isLoggedIn){
+            marker
             .addTo(map)
             .bindPopup(
             `
@@ -185,7 +185,22 @@ function addReportsToMap() {
                 </form>
             `,
             )
-            .openPopup();
+        }
+        else{
+            marker
+            .addTo(map)
+            .bindPopup(
+            `
+                <form action='/map/resolve-form' method='POST' class='popup-content'>
+                    <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
+                    <p>Lng: ${reportsData[i].longitude.toFixed(5)}</p>
+                    <p>${typeIcon}</p>
+                    <p>${formatDateTime(reportsData[i].time_of_report)}</p>
+                    <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
+                </form>
+            `,
+            )
+        }
         //Marker needs to be added before colour can be adjusted,
         //otherwise this causes an undefined error.
         //This means it can't be changed in the previous switch
@@ -205,24 +220,24 @@ function addReportsToMap() {
                 break;
         }
       
-        let markerID = `marker-${idNum}`;
-        markers[markerID] = marker;
-        let currentIdNum = idNum;
-        let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-        if (removeMarkerButton) {
-            removeMarkerButton.addEventListener("click", () => {
-                map.removeLayer(marker);
-            });
-            marker.on('click', () => {
-                let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-                if (removeMarkerButton) {
-                    removeMarkerButton.addEventListener("click", () => {
-                        map.removeLayer(marker);
-                    });
-                }
-            });
-        }
-        idNum++;
+        // let markerID = `marker-${idNum}`;
+        // markers[markerID] = marker;
+        // let currentIdNum = idNum;
+        // let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
+        // if (removeMarkerButton) {
+        //     removeMarkerButton.addEventListener("click", () => {
+        //         map.removeLayer(marker);
+        //     });
+        //     marker.on('click', () => {
+        //         let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
+        //         if (removeMarkerButton) {
+        //             removeMarkerButton.addEventListener("click", () => {
+        //                 map.removeLayer(marker);
+        //             });
+        //         }
+        //     });
+        // }
+        // idNum++;
     }
 }
 
