@@ -39,3 +39,26 @@ Cypress.Commands.add("login", (username, password) => {
     });
 });
 
+Cypress.Commands.add("clearDb", () => {
+    cy.exec("npm run clear-db").then((result) => {
+        console.log("stdout:", result.stdout);
+        console.log("stderr:", result.stderr);
+        expect(result.code).to.eq(0); // Assert that the script exits with code 0
+    });
+});
+
+Cypress.Commands.add("seedDb", () => {
+    cy.exec("npm run seed-db").then((result) => {
+        console.log("stdout:", result.stdout);
+        console.log("stderr:", result.stderr);
+        expect(result.code).to.eq(0); // Assert that the script exits with code 0
+    });
+});
+
+Cypress.Commands.add("randomInboundSms", () => {
+    cy.exec("npm run random-inbound-sms").then((result) => {
+        console.log("stdout:", result.stdout);
+        console.log("stderr:", result.stderr);
+        expect(result.code).to.eq(0); // Assert that the script exits with code 0
+    });
+});
