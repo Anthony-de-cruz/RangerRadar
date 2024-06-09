@@ -16,8 +16,7 @@ let map = L.map('map').setView(villageCentreCoords, 14);
 L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-})
-    .addTo(map);
+}).addTo(map);
 
 //Places a popup on the village centre so that users
 //can easily navigate back to it.
@@ -35,22 +34,21 @@ function showVillage() {
         `)
         .openOn(map);
 
-        map.setView(villageCentreCoords, map.getZoom());
+    map.setView(villageCentreCoords, map.getZoom());
 }
 
 const showVillageButton = document.getElementById("showVillageButton");
 showVillageButton.addEventListener("click", showVillage);
 
 function onMapClick(e) {
-    const latlng = e.latlng
+    const latlng = e.latlng;
     if (!latlng.lat || !latlng.lng || latlng.lat >= 13 || latlng.lat < 12 || latlng.lng >= 108 || latlng.lng < 106) {
         const popup = L.popup();
         popup
             .setLatLng(villageCentreCoords)
             .setContent(`Please choose valid coordinates`)
             .openOn(map);
-    }
-    else {
+    } else {
         let popup = L.popup();
         popup
             .setLatLng(latlng)
@@ -74,44 +72,44 @@ function onMapClick(e) {
                 </form> 
             `)
             .openOn(map);
-        }
     }
+}
 map.on('click', onMapClick);
 
-//Adds reports to the map. 
-//Used by both the manual form and the popup form on
-//the map.
-//May need to expand this later to take in values such as
-//severity.
-function addReportsToMap(){
-    for (i=0;i<reportsData.length;i++){
+// Function to format the date and time
+function formatDateTime(isoString) {
+    let date = new Date(isoString);
+    let year = date.getFullYear();
+    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+    let day = ('0' + date.getDate()).slice(-2);
+    let hours = ('0' + date.getHours()).slice(-2);
+    let minutes = ('0' + date.getMinutes()).slice(-2);
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+// Adds reports to the map
+function addReportsToMap() {
+    for (let i = 0; i < reportsData.length; i++) {
         let type;
-        if (reportsData[i].report_type === "erw"){
+        if (reportsData[i].report_type === "erw") {
             type = Types.ERW;
-        }
-        else if (reportsData[i].report_type === "poaching"){
+        } else if (reportsData[i].report_type === "poaching") {
             type = Types.POACHING;
-        }
-        else if (reportsData[i].report_type === "mining"){
+        } else if (reportsData[i].report_type === "mining") {
             type = Types.MINING;
-        }
-        else{
+        } else {
             type = Types.LOGGING;
         }
         let typeIcon;
-        switch(type){
+        switch (type) {
             case Types.ERW:
-                //Adjustments to the Font Awesome icons can be made here, such as
-                //changing the 5x at the end to 2x to shrink it down.
-                //Other adjustments can be found on Font Awesome
                 typeIcon = `<i class="fa-solid fa-bomb fa-fw fa-5x"></i>`;
                 break;
             case Types.POACHING:
                 typeIcon = `<i class="fa-solid fa-crosshairs fa-fw fa-5x"></i>`;
                 break;
             case Types.MINING:
-                //The symbol for mining is currently a hard hat, as Font Awesome have
-                //very helpfully locked the pickaxe symbol behind their paid tier
                 typeIcon = `<i class="fa-solid fa-helmet-safety fa-fw fa-5x"></i>`;
                 break;
             default:
@@ -121,24 +119,18 @@ function addReportsToMap(){
         marker
             .addTo(map)
             .bindPopup(`
-                <form action='/map/resolve-form' method='POST'>
-                    <p>Lat: ${reportsData[i].latitude}</p>
-                    <p>Lng: ${reportsData[i].longitude}</p>
+                <form action='/map/resolve-form' method='POST' class='popup-content'>
+                    <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
+                    <p>Lng: ${reportsData[i].longitude.toFixed(5)}</p>
                     <p>${typeIcon}</p>
-                    <p>Time: ${reportsData[i].time_of_report}</p>
+                    <p>${formatDateTime(reportsData[i].time_of_report)}</p>
                     <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
                     <button type='submit'><i class='fa-solid fa-check'></i></button>
                 </form>
-            `)
-            .openPopup();
-        //Marker needs to be added before colour can be adjusted,
-        //otherwise this causes an undefined error.
-        //This means it can't be changed in the previous switch 
-        //where types are checked.
-        //Poaching uses the default blue marker colour, so it's
-        //not here.
-        //These colours hopefully avoid most problems with colourblindness
-        switch(type){
+            `);
+
+        // Marker needs to be added before colour can be adjusted
+        switch (type) {
             case Types.ERW:
                 marker._icon.classList.add("red");
                 break;
@@ -150,31 +142,25 @@ function addReportsToMap(){
                 break;
         }
 
-//     let markerID = `marker-${idNum}`;
-//     //The created marker is added to a list of markers.
-//     //Currently, nothing is being done with this
-//     markers[markerID] = marker;
-//     let currentIdNum = idNum;
-//     //The process for removing a marker is done twice.
-//     //The remove process is set up normally first, in case the 
-//     //user removes a marker while the popup is still up for the first time.
-//     //The click event then sets up the remove process for the second time.
-//     //This is done so that the remove button works when the popup is opened again
-//     //after being closed.
-//     //If only the first remove setup was done, the event would become invalid
-//     //after the popup was closed, and the remove button wouldn't do anything.
-//     let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-//     removeMarkerButton.addEventListener("click", () => {
-//         map.removeLayer(marker);
-//     });
-//     marker.on('click', () => {
-//         let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-//         removeMarkerButton.addEventListener("click", () => {
-//             map.removeLayer(marker);
-//         });
-//     });
-//     idNum++;
-    }    
+        let markerID = `marker-${idNum}`;
+        markers[markerID] = marker;
+        let currentIdNum = idNum;
+        let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
+        if (removeMarkerButton) {
+            removeMarkerButton.addEventListener("click", () => {
+                map.removeLayer(marker);
+            });
+            marker.on('click', () => {
+                let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
+                if (removeMarkerButton) {
+                    removeMarkerButton.addEventListener("click", () => {
+                        map.removeLayer(marker);
+                    });
+                }
+            });
+        }
+        idNum++;
+    }
 }
 
-document.addEventListener("DOMContentLoaded",addReportsToMap);
+document.addEventListener("DOMContentLoaded", addReportsToMap);

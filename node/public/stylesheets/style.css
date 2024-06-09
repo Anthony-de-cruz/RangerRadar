@@ -165,6 +165,11 @@ body {
 
 div.leaflet-popup-content-wrapper {
     background-color: rgb(219, 219, 219);
+    text-align: center;
+}
+
+.popup-content button {
+  display: inline-block;
 }
 
 .fa-solid.fa-bomb.fa-fw.fa-5x {
