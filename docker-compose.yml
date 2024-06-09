@@ -1,5 +1,3 @@
-version: "3"
-
 secrets:
   ngrok-auth-token.yml:
     file: ./ngrok/ngrok-auth-token.yml

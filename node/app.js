@@ -38,7 +38,7 @@ app.use("/map", mapRouter);
 app.use("/users", usersRouter);
 app.use("/register", registerRouter);
 app.use("/webhooks/inbound-sms", inboundSmsRouter);
-app.use("/index", indexRouter);
+app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 // catch 404 and forward to error handler
