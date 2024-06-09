@@ -45,3 +45,5 @@ CREATE TABLE IF NOT EXISTS sms_messages
     message_timestamp TIMESTAMP    NOT NULL,
     PRIMARY KEY (internal_id)
 );
+
+SELECT * FROM staff;
