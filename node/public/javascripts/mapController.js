@@ -53,6 +53,13 @@ function showVillage() {
 const showVillageButton = document.getElementById("showVillageButton");
 showVillageButton.addEventListener("click", showVillage);
 
+function registerReport(){
+    console.log("Sup");
+}
+
+const registerReportButton = document.getElementById("registerReportButton");
+registerReportButton.addEventListener("click",registerReport);
+
 function onMapClick(e) {
 
     const latlng = e.latlng;

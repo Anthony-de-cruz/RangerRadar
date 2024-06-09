@@ -12,9 +12,10 @@ block content
     nav.navbar
       .logo Ranger Radar
       .nav-links
+        .nav-item Report
         .nav-item Map
         .nav-item Live Feed
-        a.nav-item(href='/register') Register
+        #registerReportButton.nav-item(href='/register') Register
         if loggedIn 
           a.nav-item(href='/logout') Logout
         else 
