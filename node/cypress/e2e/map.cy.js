@@ -30,6 +30,8 @@ context("Interactive Map", () => {
     });
     describe("Reports", () => {
         beforeEach(() => {
+            cy.clearDb();
+            cy.seedDb();
             cy.visit("http://localhost:8080/map");
         });
 
