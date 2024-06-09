@@ -6,7 +6,10 @@
     "start": "node ./bin/www",
     "start.dev": "nodemon -L",
     "test": "jest --verbose",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "clear-db": "./scripts/clear-db.sh",
+    "seed-db": "./scripts/seed-db.sh",
+    "random-inbound-sms": "./scripts/random-inbound-sms"
   },
   "dependencies": {
     "@vonage/server-sdk": "^3.14.1",
