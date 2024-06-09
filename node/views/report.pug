@@ -1,0 +1,40 @@
+extends layout
+block content
+    body
+        .login-body-container
+            .login-form-container
+                h1 RangerRadar
+                h2 Make a Report
+                form(action='/report/manual-form' method='POST')
+                    label(for='lat') Lat: 
+                    input#latBox(type='text' name='lat' placeholder='Enter lat coords here' required='')
+                    br
+                    label(for='lng') Lng:  
+                    input#lngBox(type='text' name='lng' placeholder='Enter lng coords here' required='')
+                    br
+                    input(type='radio' id='formERW' name='formType' value='erw' checked)
+                    label(for='formERW')
+                        i(class="fa-solid fa-bomb fa-fw fa-5x")
+                    br
+                    input(type='radio' id='formPoaching' name='formType' value='poaching')
+                    label(for='formPoaching')
+                        i(class="fa-solid fa-crosshairs fa-fw fa-5x")
+                    br 
+                    input(type='radio' id='formMining' name='formType' value='mining') 
+                    label(for='formMining')
+                        i(class="fa-solid fa-helmet-safety fa-fw fa-5x")
+                    br
+                    input(type='radio' id='formLogging' name='formType' value='logging')
+                    label(for='formLogging')
+                        i(class="fa-solid fa-tree fa-fw fa-5x")
+                    br
+                    button#manualFormSubmitButton(type='submit') 
+                        i( class='fa-solid fa-check')
+                    br
+                    if alert
+                        each error, i in alert
+                            div(style='color:red') #{error.msg}
+                    br
+                p
+                    a.navigation-link(href='/map') Back to Map
+

@@ -6,28 +6,27 @@ const LoginRegisterController = require("../controllers/loginRegisterController"
 
 const { query } = database;
 
-/* GET map page. */
+/* GET report page. */
 router.get(
     "/",
     LoginRegisterController.collectAuthTokenData,
     async function (req, res, next) {
-        const reportData = await getReports();
-        res.render("map", {
-            title: "Map",
+        res.render("report", {
+            title: "Report",
             loggedIn: req.loggedIn,
-            user: req.user,
-            reports: reportData,
+            user: req.user
         });
     }
 );
 
 router.post(
-    "/map-form",
+    "/manual-form",
     [
+        check("lat").notEmpty().isFloat().withMessage("Lat must be a number"),
         check("lat")
             .custom((value, { req }) => {
                 const min = 12;
-                const max = 13.3;
+                const max = 13;
                 const lat = parseFloat(value);
                 if (lat >= max || lat < min) {
                     throw new Error("Invalid lat coordinates");
@@ -35,6 +34,7 @@ router.post(
                 return true;
             })
             .withMessage("Lat must be in or near the village"),
+        check("lng").notEmpty().isFloat().withMessage("Lng must be a number"),
         check("lng")
             .custom((value, { req }) => {
                 const min = 106;
@@ -50,25 +50,19 @@ router.post(
     async (req, res, next) => {
         const lat = req.body.lat;
         const lng = req.body.lng;
-        const type = req.body.popupType;
+        const type = req.body.formType;
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const alert = errors.array();
             console.debug(alert);
-            res.redirect("/map");
+            res.render("report",{alert})
         } else {
             addReport(type, lat, lng);
             res.redirect("/map");
         }
     }
 );
-
-router.post("/resolve-form", async (req, res, next) => {
-    const id = req.body.id;
-    resolveReport(id);
-    res.redirect("/map");
-});
 
 async function addReport(type, lat, lng) {
     try {
@@ -80,25 +74,6 @@ async function addReport(type, lat, lng) {
         console.log(`Inserted new report:${type},low,${lat},${lng}`);
     } catch (error) {
         throw error;
-    }
-}
-
-async function getReports() {
-    try {
-        const result = await query(
-            "SELECT * FROM report WHERE resolved=false;"
-        );
-        return result.rows;
-    } catch (error) {
-        throw new Error("Failed to fetch reports: " + error.message);
-    }
-}
-
-async function resolveReport(id) {
-    try {
-        await query("UPDATE report SET resolved=true WHERE id=$1;", [id]);
-    } catch (error) {
-        throw new Error("Failed to resolve report: " + error.message);
     }
 }
 

@@ -38,7 +38,7 @@ function showVillage() {
     popup
         .setLatLng(villageCentreCoords)
         .setContent(
-            `
+        `
             <div style="text-align: center;">
                 <i class="fa-solid fa-vihara" style="font-size: 24px;"></i><br>
                 Pu Nagol Community Meeting Hall
@@ -52,6 +52,37 @@ function showVillage() {
 
 const showVillageButton = document.getElementById("showVillageButton");
 showVillageButton.addEventListener("click", showVillage);
+
+function registerReport(){
+    alert(
+    `
+        form#locationForm.hidden(action='/map/manual-form' method='POST')
+            <label for='lat'>Lat:</label> 
+            <input id='latBox' type='text' name='lat' placeholder='Enter lat coords here' required=''></input>
+            <br>
+            <label for='lng'>Lng:</label>  
+            <input id='lngBox' type='text' name='lng' placeholder='Enter lng coords here' required=''></input>
+            <br>
+            <input type='radio' id='formERW' name='formType' value='erw' checked></input>
+            <label for='formERW'><i class="fa-solid fa-bomb fa-fw fa-5x"></i></label>
+            <br>
+            <input type='radio' id='formPoaching' name='formType' value='poaching'></input>
+            <label for='formPoaching'><i class="fa-solid fa-crosshairs fa-fw fa-5x"></i></label>
+            <br> 
+            <input type='radio' id='formMining' name='formType' value='mining'></input>
+            <label for='formMining'><i class="fa-solid fa-helmet-safety fa-fw fa-5x"></i></label>
+            <br>
+            <input type='radio' id='formLogging' name='formType' value='logging'></input>
+            <label for='formLogging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
+            <br>
+            <button id='manualFormSubmitButton' type='submit'><i class='fa-solid fa-check'></i>
+            </button> 
+    `
+    )
+}
+
+// const registerReportButton = document.getElementById("registerReportButton");
+// registerReportButton.addEventListener("click",registerReport);
 
 function onMapClick(e) {
 
@@ -67,7 +98,7 @@ function onMapClick(e) {
         popup
             .setLatLng(latlng)
             .setContent(
-                `
+            `
                 <form action='/map/map-form' method='POST'>
                     <input type='hidden' name='lat' value='${latlng.lat}' readonly>
                     <input type='hidden' name='lng' value='${latlng.lng}' readonly>
@@ -142,7 +173,8 @@ function addReportsToMap() {
         ]);
         marker
             .addTo(map)
-            .bindPopup(`
+            .bindPopup(
+            `
                 <form action='/map/resolve-form' method='POST' class='popup-content'>
                     <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
                     <p>Lng: ${reportsData[i].longitude.toFixed(5)}</p>

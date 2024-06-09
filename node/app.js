@@ -9,6 +9,7 @@ var databaseController = require("./controllers/databaseController");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var inboundSmsRouter = require("./routes/inboundSms");
+var reportRouter = require("./routes/report")
 var mapRouter = require("./routes/map");
 var registerRouter = require("./routes/register");
 var loginRouter = require("./routes/login");
@@ -28,14 +29,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 databaseController.testConnection();
 
-//Default path will need to be changed eventually.
-//If you alter the paths here, you'll need to terminate
-//the docker connection and boot it back up again for your
-//changes to take effect.
 //Route changes will also require you to change the
 //corresponding route files
 app.use("/map", mapRouter);
 app.use("/users", usersRouter);
+app.use("/report",reportRouter);
 app.use("/register", registerRouter);
 app.use("/webhooks/inbound-sms", inboundSmsRouter);
 app.use("/", indexRouter);
