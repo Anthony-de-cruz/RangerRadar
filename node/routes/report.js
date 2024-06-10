@@ -34,18 +34,18 @@ router.post(
                 return true;
             })
             .withMessage("Lat must be in or near the village"),
-        check("lng").notEmpty().isFloat().withMessage("Lng must be a number"),
-        check("lng")
+        check("long").notEmpty().isFloat().withMessage("Long must be a number"),
+        check("long")
             .custom((value, { req }) => {
                 const min = 106;
                 const max = 108;
                 const lng = parseFloat(value);
                 if (lng >= max || lng < min) {
-                    throw new Error("Invalid lng coordinates");
+                    throw new Error("Invalid long coordinates");
                 }
                 return true;
             })
-            .withMessage("Lng must be in or near the village"),
+            .withMessage("Long must be in or near the village"),
     ],
     async (req, res, next) => {
         const lat = req.body.lat;
