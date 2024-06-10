@@ -2,46 +2,27 @@ extends layout
 
 block content
   head
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src="https://kit.fontawesome.com/af150feb64.js", crossorigin="anonymous")
     //- CSS for Leaflet must go before the JS file, otherwise it won't work
     link(rel="stylesheet", href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=", crossorigin="")
     script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", crossorigin="") 
     script(src='/javascripts/mapController.js', defer)
   body
     nav.navbar
-      .logo Ranger Radar
+      a.logo.nav-item(href='/') Ranger Radar
       .nav-links
-        .nav-item Map
-        .nav-item Live Feed
-        a.nav-item(href='/register') Register
-        a.nav-item(href='/account') Account
+        a.nav-item(href='/report') Report
+        a.nav-item(href='/') Map
+        a.nav-item(href='/livefeed') Live Feed
+        .nav-item(href='/register') Register
+        if loggedIn 
+          a.nav-item(href='/logout') Logout
+        else 
+          a.nav-item(href='/login') Login
 
+        
     div#map-container
-      button#showVillageButton Show village on map
+      button#showVillageButton <i class="fa-solid fa-vihara"></i> Pu Nagol Community Meeting Hall
       div#map
-    form#locationForm.hidden
-      label(for='Lat') Lat: 
-      input#latBox(type='text' name='Lat' placeholder='Enter lat coords here' required='')
-      br
-      label(for='Lng') Lng:  
-      input#lngBox(type='text' name='Lng' placeholder='Enter lng coords here' required='')
-      br
-      input(type='radio' id='formERW' name='formType')
-      label(for='formERW')
-        i(class="fa-solid fa-bomb fa-fw fa-5x")
-      br
-      input(type='radio' id='formPoaching' name='formType')
-      label(for='formPoaching')
-        i(class="fa-solid fa-crosshairs fa-fw fa-5x")
-      br 
-      input(type='radio' id='formMining' name='formType') 
-      label(for='formMining')
-        i(class="fa-solid fa-helmet-safety fa-fw fa-5x")
-      br
-      input(type='radio' id='formLogging' name='formType')
-      label(for='formLogging')
-        i(class="fa-solid fa-tree fa-fw fa-5x")
-      br
-      button#manualFormSubmitButton 
-        i(class='fa-solid fa-check')
+    script.
+        let reportsData = !{JSON.stringify(reports)}
+        let isLoggedIn = !{loggedIn}

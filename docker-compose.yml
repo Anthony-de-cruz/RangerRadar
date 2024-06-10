@@ -1,5 +1,3 @@
-# version: "4"
-
 secrets:
   ngrok-auth-token.yml:
     file: ./ngrok/ngrok-auth-token.yml
@@ -18,6 +16,10 @@ services:
       PORT: 8080
       VONAGE_API_KEY: ${VONAGE_API_KEY}
       VONAGE_API_SECRET: ${VONAGE_API_SECRET}
+      DB_HOST: rr-database
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: postgres
     # Ensure that postgres is running before starting up node
     depends_on:
       rr-db:
