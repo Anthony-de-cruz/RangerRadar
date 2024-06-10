@@ -7,10 +7,12 @@ block content
     nav.navbar
       .logo Ranger Radar
       .nav-links
-        .nav-item Map
-        .nav-item Live Feed
+        a.nav-item(href='/report') Report
+        a.nav-item(href='/') Map
+        a.nav-item(href='/livefeed') Live Feed
         a.nav-item(href='/register') Register
         if loggedIn 
+          a.nav-item(href='/account') Account
           a.nav-item(href='/logout') Logout
         else 
           a.nav-item(href='/login') Login
