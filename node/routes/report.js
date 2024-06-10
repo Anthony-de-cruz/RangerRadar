@@ -59,7 +59,7 @@ router.post(
             res.render("report",{alert})
         } else {
             addReport(type, lat, lng);
-            res.redirect("/map");
+            res.redirect("/");
         }
     }
 );

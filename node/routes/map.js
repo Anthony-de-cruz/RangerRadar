@@ -59,7 +59,7 @@ router.post(
             res.redirect("/map");
         } else {
             addReport(type, lat, lng);
-            res.redirect("/map");
+            res.redirect("/");
         }
     }
 );
@@ -67,7 +67,7 @@ router.post(
 router.post("/resolve-form", async (req, res, next) => {
     const id = req.body.id;
     resolveReport(id);
-    res.redirect("/map");
+    res.redirect("/");
 });
 
 async function addReport(type, lat, lng) {

@@ -23,7 +23,8 @@ context("SMS System", () => {
                 expect(response).property("status").to.equal(204);
             });
 
-            cy.visit("http://localhost:8080/map");
+            //cy.visit("http://localhost:8080/map");
+            cy.visit('http://localhost:8080/');
 
             // Assert that the report details are correct
             cy.get(".popup-content > :nth-child(1)").should(

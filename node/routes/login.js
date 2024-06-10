@@ -26,7 +26,7 @@ router.post("/", async (req, res, next) => {
 
     if (user.password === password) {
         LoginRegisterController.generateAuthToken(res, user.username);
-        return res.redirect("/map");
+        return res.redirect("/");
     }
 
     console.log("ERR: login not correct");
