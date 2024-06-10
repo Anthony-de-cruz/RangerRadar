@@ -242,3 +242,11 @@ div.leaflet-popup-content-wrapper {
 #report-table tbody tr:hover {
     background-color: #f9f9f9;
 }
+
+.popup-content {
+    text-align: center;
+}
+
+.popup-content button {
+    display: inline-block;
+}
