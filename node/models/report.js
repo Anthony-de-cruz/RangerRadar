@@ -50,13 +50,13 @@ class Report {
      */
     static buildFromString(string) {
         var tokens = string.split("\n");
-        tokens.forEach((element, index, array) => {
-            array[index] = element.trim().toLowerCase();
+        tokens.forEach((element) => {
+            element = element.trim().toLowerCase();
         });
         var type = tokens[0];
         var severity = tokens[1];
-        var latitude = Number(tokens[2]);
-        var longitude = Number(tokens[3]);
+        var latitude = tokens[2];
+        var longitude = tokens[3];
 
         try {
             return new Report(
