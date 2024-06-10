@@ -86,7 +86,7 @@ function onMapClick(e) {
                 `,
                 )
                 .openOn(map);
-        } else if (mode === 'Point of Interest') {
+        } else if (mode === 'Points of Interest') {
             popup
                 .setLatLng(latlng)
                 .setContent(
@@ -94,7 +94,7 @@ function onMapClick(e) {
                     <form action='/poi-form' method='POST'>
                         <input type='hidden' name='lat' value='${latlng.lat}' readonly>
                         <input type='hidden' name='long' value='${latlng.lng}' readonly>
-                        <label for='poiType'>Point of Interest:</label>
+                        <label for='poiType'>Name:</label>
                         <input type='text' id='poiType' name='poiType'></input>
                         <br>
                         <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
@@ -236,7 +236,7 @@ if (modeSwitchButton) {
         // Close all open popups when switching modes
         closeAllPopups();
 
-        mode = mode === 'Report' ? 'Point of Interest' : 'Report';
+        mode = mode === 'Report' ? 'Points of Interest' : 'Report';
         modeSwitchButton.innerHTML = mode === 'Report'
             ? `<i class="fa-solid fa-location-dot"></i> Report`
             : `<i class="fa-solid fa-mountain-sun"></i> Points of Interest`;
