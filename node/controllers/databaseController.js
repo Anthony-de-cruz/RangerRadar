@@ -19,6 +19,7 @@ class DatabaseController {
      * @throws When an invalid query is passed
      */
     static async query(text, params) {
+        console.log(text, params);
         try {
             const start = Date.now();
             var res = await DatabaseController.pool.query(text, params);
