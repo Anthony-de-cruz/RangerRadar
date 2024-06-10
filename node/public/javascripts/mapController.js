@@ -190,7 +190,47 @@ function addReportsToMap() {
                 marker._icon.classList.add("yellow");
                 break;
         }
+        
+        let markerID = `marker-${idNum}`;
+        markers[markerID] = marker;
+        let currentIdNum = idNum;
+        let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
+        if (removeMarkerButton) {
+            removeMarkerButton.addEventListener("click", () => {
+                map.removeLayer(marker);
+            });
+            marker.on('click', () => {
+                let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
+                if (removeMarkerButton) {
+                    removeMarkerButton.addEventListener("click", () => {
+                        map.removeLayer(marker);
+                    });
+                }
+            });
+        }
+        idNum++;
     }
 }
 
+// Function to close all popups
+function closeAllPopups() {
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Popup) {
+            map.closePopup(layer);
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", addReportsToMap);
+
+// Switch Mode Button
+const modeSwitchButton = document.getElementById('modeSwitchButton');
+modeSwitchButton.addEventListener('click', () => {
+    // Close all open popups when switching modes
+    closeAllPopups();
+    
+    mode = mode === 'Report' ? 'Point of Interest' : 'Report';
+    modeSwitchButton.innerHTML = mode === 'Report'
+        ? `<i class="fa-solid fa-location-dot"></i> Report`
+        : `<i class="fa-solid fa-mountain-sun"></i> Points of Interest`;
+});
