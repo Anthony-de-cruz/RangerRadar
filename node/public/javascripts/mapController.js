@@ -7,6 +7,12 @@ const Types = Object.freeze({
     MINING: 2,
     LOGGING: 3,
 });
+
+const mapMode = Object.freeze({
+    REPORT: 0,
+    POI: 1,
+});
+
 const villageCentreCoords = [12.577758601317383, 106.93490646676959];
 
 // Sets up the main map.
@@ -49,7 +55,7 @@ const showVillageButton = document.getElementById("showVillageButton");
 showVillageButton.addEventListener("click", showVillage);
 
 // Initialize mode
-let mode = 'Report';
+let mode = mapMode.REPORT;
 
 function onMapClick(e) {
     const latlng = e.latlng;
@@ -61,7 +67,7 @@ function onMapClick(e) {
             .openOn(map);
     } else {
         let popup = L.popup();
-        if (mode === 'Report') {
+        if (mode === mapMode.REPORT) {
             popup
                 .setLatLng(latlng)
                 .setContent(
@@ -86,7 +92,7 @@ function onMapClick(e) {
                 `,
                 )
                 .openOn(map);
-        } else if (mode === 'Points of Interest') {
+        } else{
             popup
                 .setLatLng(latlng)
                 .setContent(
@@ -95,7 +101,7 @@ function onMapClick(e) {
                         <input type='hidden' name='lat' value='${latlng.lat}' readonly>
                         <input type='hidden' name='long' value='${latlng.lng}' readonly>
                         <label for='poiType'>Name:</label>
-                        <input type='text' id='poiType' name='poiType'></input>
+                        <input type='text' id='poiName' name='poiName' required></input>
                         <br>
                         <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
                     </form> 
@@ -122,7 +128,6 @@ function formatDateTime(isoString) {
 // Adds reports to the map.
 function addReportsToMap() {
     for (let i = 0; i < reportsData.length; i++) {
-
         let type;
         if (reportsData[i].report_type === "erw") {
             type = Types.ERW;
@@ -184,39 +189,60 @@ function addReportsToMap() {
         `,
             )
             .openPopup();
+        }
+        // Marker needs to be added before colour can be adjusted
+        switch (type) {
+            case Types.ERW:
+                marker._icon.classList.add("red");
+                break;
+            case Types.MINING:
+                marker._icon.classList.add("purple");
+                break;
+            case Types.LOGGING:
+                marker._icon.classList.add("yellow");
+                break;
+        }
     }
-    // Marker needs to be added before colour can be adjusted
-    switch (type) {
-        case Types.ERW:
-            marker._icon.classList.add("red");
-            break;
-        case Types.MINING:
-            marker._icon.classList.add("purple");
-            break;
-        case Types.LOGGING:
-            marker._icon.classList.add("yellow");
-            break;
-    }
-
-    let markerID = `marker-${idNum}`;
-    markers[markerID] = marker;
-    let currentIdNum = idNum;
-    let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-    if (removeMarkerButton) {
-        removeMarkerButton.addEventListener("click", () => {
-            map.removeLayer(marker);
-        });
-        marker.on('click', () => {
-            let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-            if (removeMarkerButton) {
-                removeMarkerButton.addEventListener("click", () => {
-                    map.removeLayer(marker);
-                });
-            }
-        });
-    }
-    idNum++;
 }
+
+function addPoisToMap(){
+    for (let i = 0; i < poiData.length; i++) {
+        let marker = L.marker([
+            poiData[i].latitude,
+            poiData[i].longitude,
+        ]);
+        if (isLoggedIn) {
+            marker
+                .addTo(map)
+                .bindPopup(
+                    `
+                <form action='/remove-poi' method='POST' class='popup-content'>
+                    <p>${poiData[i].name}</p>
+                    <p>Lat: ${poiData[i].latitude.toFixed(5)}</p>
+                    <p>Long: ${poiData[i].longitude.toFixed(5)}</p>
+                    <input type='hidden' name='poiName' value='${poiData[i].name}' readonly>
+                    <button type='submit'><i class='fa-solid fa-check'></i> Remove </button>
+                </form>
+            `,
+                )
+                .openPopup();
+        }
+        else {
+            marker
+            .addTo(map)
+            .bindPopup(
+                `
+            <form class='popup-content'>
+                <p>${poiData[i].name}</p>
+                <p>Lat: ${poiData[i].latitude.toFixed(5)}</p>
+                <p>Long: ${poiData[i].longitude.toFixed(5)}</p>
+            </form>
+        `,
+            )
+            .openPopup();
+        }
+        marker._icon.classList.add("light-blue");
+    }
 }
 
 // Function to close all popups
@@ -230,16 +256,20 @@ map.eachLayer(function (layer) {
 
 document.addEventListener("DOMContentLoaded", () => {
 addReportsToMap();
+addPoisToMap();
 const modeSwitchButton = document.getElementById('modeSwitchButton');
 if (modeSwitchButton) {
     modeSwitchButton.addEventListener('click', () => {
         // Close all open popups when switching modes
         closeAllPopups();
-
-        mode = mode === 'Report' ? 'Points of Interest' : 'Report';
-        modeSwitchButton.innerHTML = mode === 'Report'
-            ? `<i class="fa-solid fa-location-dot"></i> Report`
-            : `<i class="fa-solid fa-mountain-sun"></i> Points of Interest`;
+        if (mode === mapMode.REPORT){
+            mode = mapMode.POI;
+            modeSwitchButton.innerHTML = `<i class="fa-solid fa-mountain-sun"></i> Points of Interest`;
+        }
+        else{
+            mode = mapMode.REPORT;
+            modeSwitchButton.innerHTML = `<i class="fa-solid fa-location-dot"></i> Report`;
+        }
     });
 }
 });

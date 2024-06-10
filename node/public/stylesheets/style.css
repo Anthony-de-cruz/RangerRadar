@@ -66,6 +66,10 @@ a {
     filter: hue-rotate(210deg);
 }
 
+.light-blue {
+  filter: hue-rotate(330deg);
+}
+
 select {
     font-family: "FontAwesome 5 Free", "sans-serif";
 }
