@@ -81,7 +81,7 @@ function onMapClick(e) {
                         <input type='radio' id='logging' name='popupType' value='logging'></input>
                         <label for='logging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
                         <br>
-                        <button id='mapFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> create </button>
+                        <button id='mapFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
                     </form> 
                 `,
                 )
@@ -97,7 +97,7 @@ function onMapClick(e) {
                         <label for='poiType'>Point of Interest:</label>
                         <input type='text' id='poiType' name='poiType'></input>
                         <br>
-                        <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> create </button>
+                        <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
                     </form> 
                 `,
                 )
