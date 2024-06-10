@@ -9,11 +9,12 @@ var databaseController = require("./controllers/databaseController");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var inboundSmsRouter = require("./routes/inboundSms");
-var reportRouter = require("./routes/report")
+var reportRouter = require("./routes/report");
 var mapRouter = require("./routes/map");
 var registerRouter = require("./routes/register");
 var loginRouter = require("./routes/login");
 var logoutRouter = require("./routes/logout");
+var livefeedRouter = require("./routes/livefeed");
 
 var app = express();
 
@@ -33,12 +34,13 @@ databaseController.testConnection();
 //corresponding route files
 app.use("/", mapRouter);
 app.use("/users", usersRouter);
-app.use("/report",reportRouter);
+app.use("/report", reportRouter);
 app.use("/register", registerRouter);
 app.use("/webhooks/inbound-sms", inboundSmsRouter);
 // app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
+app.use("/livefeed", livefeedRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));

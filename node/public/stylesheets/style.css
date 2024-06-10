@@ -169,7 +169,7 @@ div.leaflet-popup-content-wrapper {
 }
 
 .popup-content button {
-  display: inline-block;
+    display: inline-block;
 }
 
 .fa-solid.fa-bomb.fa-fw.fa-5x {
@@ -206,4 +206,39 @@ div.leaflet-popup-content-wrapper {
     border-radius: 5px;
     color: black;
     margin: 5px 0px 5px 0px;
+}
+
+#report-table-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 4px black;
+    padding: 20px;
+    max-width: 1000px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 20px auto;
+}
+
+#report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#report-table thead {
+    background-color: #f2f2f2;
+}
+
+#report-table th,
+#report-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#report-table th {
+    font-weight: bold;
+}
+
+#report-table tbody tr:hover {
+    background-color: #f9f9f9;
 }

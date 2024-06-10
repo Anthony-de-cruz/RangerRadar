@@ -4,6 +4,7 @@ block content
   head
     //- CSS for Leaflet must go before the JS file, otherwise it won't work
     link(rel="stylesheet", href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=", crossorigin="")
+    link(rel="stylesheet", href="/stylesheets/styles.css")
     script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", crossorigin="") 
     script(src='/javascripts/mapController.js', defer)
   body
@@ -19,10 +20,28 @@ block content
         else 
           a.nav-item(href='/login') Login
 
-        
-    div#map-container
-      button#showVillageButton <i class="fa-solid fa-vihara"></i> Pu Nagol Community Meeting Hall
-      div#map
+    div#report-table-container
+      h2 Live Reports
+      table#report-table
+        thead
+          tr
+            th ID
+            th Type
+            th Severity
+            th Time of Report
+            th Latitude
+            th Longitude
+            th Resolved
+        tbody
+          each report in reports
+            tr
+              td= report.id
+              td= report.report_type
+              td= report.severity
+              td= report.time_of_report
+              td= report.latitude
+              td= report.longitude
+              td= report.resolved ? "Yes" : "No"
     script.
         let reportsData = !{JSON.stringify(reports)}
         let isLoggedIn = !{loggedIn}

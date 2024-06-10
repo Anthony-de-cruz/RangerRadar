@@ -64,6 +64,17 @@ class LoginRegisterController {
         }
     }
 
+    static async showLivefeed() {
+        try {
+            const result = await query(
+                `SELECT * FROM report WHERE resolved=false;`
+            );
+            return result.rows;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     /**
      * Put this middleware in front of any GET requests for pages
      * that require user data
