@@ -13,17 +13,16 @@ block content
         a.nav-item(href='/report') Report
         a.nav-item(href='/') Map
         a.nav-item(href='/livefeed') Live Feed
-        a.nav-item(href='/account') Account
         a.nav-item(href='/register') Register
         if loggedIn 
           a.nav-item(href='/logout') Logout
         else 
           a.nav-item(href='/login') Login
 
-        
     div#map-container
       button#showVillageButton <i class="fa-solid fa-vihara"></i> Pu Nagol Community Meeting Hall
-      button#modeSwitchButton <i class="fa-solid fa-location-dot"></i> Report
+      if loggedIn
+        button#modeSwitchButton <i class="fa-solid fa-location-dot"></i> Report
       div#map
     script.
         let reportsData = !{JSON.stringify(reports)}
