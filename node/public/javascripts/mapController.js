@@ -68,7 +68,7 @@ function onMapClick(e) {
                     `
                     <form action='/map-form' method='POST'>
                         <input type='hidden' name='lat' value='${latlng.lat}' readonly>
-                        <input type='hidden' name='lng' value='${latlng.lng}' readonly>
+                        <input type='hidden' name='long' value='${latlng.lng}' readonly>
                         <input type='radio' id='ERW' name='popupType' value='erw' checked></input> 
                         <label for='ERW'><i class="fa-solid fa-bomb fa-fw fa-5x"></i></label>
                         <br>
@@ -81,7 +81,7 @@ function onMapClick(e) {
                         <input type='radio' id='logging' name='popupType' value='logging'></input>
                         <label for='logging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
                         <br>
-                        <button id='mapFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i></button>
+                        <button id='mapFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> create </button>
                     </form> 
                 `,
                 )
@@ -93,11 +93,11 @@ function onMapClick(e) {
                     `
                     <form action='/poi-form' method='POST'>
                         <input type='hidden' name='lat' value='${latlng.lat}' readonly>
-                        <input type='hidden' name='lng' value='${latlng.lng}' readonly>
+                        <input type='hidden' name='long' value='${latlng.lng}' readonly>
                         <label for='poiType'>Point of Interest:</label>
                         <input type='text' id='poiType' name='poiType'></input>
                         <br>
-                        <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i></button>
+                        <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> create </button>
                     </form> 
                 `,
                 )
@@ -159,11 +159,11 @@ function addReportsToMap() {
                     `
                 <form action='/resolve-form' method='POST' class='popup-content'>
                     <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
-                    <p>Lng: ${reportsData[i].longitude.toFixed(5)}</p>
+                    <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
                     <p>${typeIcon}</p>
                     <p>${formatDateTime(reportsData[i].time_of_report)}</p>
                     <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
-                    <button type='submit'><i class='fa-solid fa-check'></i></button>
+                    <button type='submit'><i class='fa-solid fa-check'></i> Resolve </button>
                 </form>
             `,
                 )
@@ -176,7 +176,7 @@ function addReportsToMap() {
                 `
             <form action='/resolve-form' method='POST' class='popup-content'>
                 <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
-                <p>Lng: ${reportsData[i].longitude.toFixed(5)}</p>
+                <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
                 <p>${typeIcon}</p>
                 <p>${formatDateTime(reportsData[i].time_of_report)}</p>
                 <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
