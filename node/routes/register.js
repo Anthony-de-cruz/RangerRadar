@@ -18,14 +18,14 @@ router.post("/", async (req, res, next) => {
             "," +
             password +
             "," +
-            phone_number
+            phone_number,
     );
 
     try {
         await LoginRegisterController.registerUser(
             username,
             password,
-            phone_number
+            phone_number,
         );
         res.redirect("/");
     } catch (error) {
