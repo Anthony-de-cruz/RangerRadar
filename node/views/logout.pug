@@ -1,21 +1,7 @@
 extends layout
 
 block content
-  head
-    link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    nav.navbar
-      .logo Ranger Radar
-      .nav-links
-        a.nav-item(href='/report') Report
-        a.nav-item(href='/') Map
-        a.nav-item(href='/livefeed') Live Feed
-        a.nav-item(href='/register') Register
-        if loggedIn 
-          a.nav-item(href='/account') Account
-          a.nav-item(href='/logout') Logout
-        else 
-          a.nav-item(href='/login') Login
     .login-body-container
     .login-form-container   
         h2 Logout

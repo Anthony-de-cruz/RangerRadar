@@ -14,7 +14,8 @@ router.get(
         res.render("report", {
             title: "Report",
             loggedIn: req.loggedIn,
-            user: req.user
+            user: req.user,
+            selectedNav:"reportNav"
         });
     }
 );
@@ -49,7 +50,7 @@ router.post(
     ],
     async (req, res, next) => {
         const lat = req.body.lat;
-        const lng = req.body.lng;
+        const lng = req.body.long;
         const type = req.body.formType;
 
         const errors = validationResult(req);

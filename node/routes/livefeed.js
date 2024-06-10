@@ -6,10 +6,11 @@ const LoginRegisterController = require("../controllers/loginRegisterController"
 
 const { query } = database;
 
-router.get("/", async function (req, res, next) {
+router.get("/", LoginRegisterController.collectAuthTokenData,
+async function (req, res, next) {
     try {
         const reports = await LoginRegisterController.showLivefeed();
-        res.render("livefeed", { reports });
+        res.render("livefeed", { reports,loggedIn:req.loggedIn,selectedNav:"livefeedNav"});
     } catch (error) {
         console.error("Failed to fetch reports:", error);
         res.status(500).send("Internal Server Error");

@@ -3,8 +3,9 @@ var router = express.Router();
 
 const LoginRegisterController = require("../controllers/loginRegisterController");
 
-router.get("/", function (req, res, next) {
-    res.render("register", {});
+router.get("/", LoginRegisterController.collectAuthTokenData,
+function (req, res, next) {
+    res.render("register", {loggedIn:req.loggedIn,selectedNav:"registerNav"});
 });
 
 router.post("/", async (req, res, next) => {

@@ -7,7 +7,7 @@ const User = require("../models/user");
 
 /* GET login. */
 router.get("/", function (req, res, next) {
-    res.render("login", {});
+    res.render("login", {selectedNav:"loginNav"});
 });
 
 router.post("/", async (req, res, next) => {

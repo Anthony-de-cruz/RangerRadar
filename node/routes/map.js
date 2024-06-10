@@ -17,6 +17,7 @@ router.get(
             loggedIn: req.loggedIn,
             user: req.user,
             reports: reportData,
+            selectedNav:"mapNav"
         });
     }
 );
@@ -41,22 +42,22 @@ router.post(
                 const max = 108;
                 const lng = parseFloat(value);
                 if (lng >= max || lng < min) {
-                    throw new Error("Invalid lng coordinates");
+                    throw new Error("Invalid long coordinates");
                 }
                 return true;
             })
-            .withMessage("Lng must be in or near the village"),
+            .withMessage("Long must be in or near the village"),
     ],
     async (req, res, next) => {
         const lat = req.body.lat;
-        const lng = req.body.lng;
+        const lng = req.body.long;
         const type = req.body.popupType;
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const alert = errors.array();
             console.debug(alert);
-            res.redirect("/map");
+            res.redirect("/");
         } else {
             addReport(type, lat, lng);
             res.redirect("/");

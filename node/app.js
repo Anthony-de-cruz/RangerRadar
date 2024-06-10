@@ -6,7 +6,6 @@ var logger = require("morgan");
 
 var databaseController = require("./controllers/databaseController");
 
-var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var inboundSmsRouter = require("./routes/inboundSms");
 var reportRouter = require("./routes/report");
