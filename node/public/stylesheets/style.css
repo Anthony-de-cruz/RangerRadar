@@ -26,7 +26,8 @@ a {
     width: 100%;
 }
 
-#showVillageButton {
+#showVillageButton,
+#modeSwitchButton {
     position: absolute;
     top: 12px;
     left: 50px;
@@ -39,7 +40,16 @@ a {
     transition: background-color 0.3s, color 0.3s;
 }
 
-#showVillageButton:hover {
+#showVillageButton {
+    top: 12px;
+}
+
+#modeSwitchButton {
+    top: 50px;
+}
+
+#showVillageButton:hover,
+#modeSwitchButton:hover {
     background-color: #ddd;
     color: red;
 }
