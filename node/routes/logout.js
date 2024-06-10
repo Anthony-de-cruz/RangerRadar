@@ -14,7 +14,7 @@ router.get(
 );
 
 router.post("/", function (req, res, next) {
-    return LoginRegisterController.revokeAuthToken(res).redirect("/map");
+    return LoginRegisterController.revokeAuthToken(res).redirect("/");
 });
 
 module.exports = router;

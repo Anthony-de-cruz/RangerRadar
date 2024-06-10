@@ -31,12 +31,12 @@ databaseController.testConnection();
 
 //Route changes will also require you to change the
 //corresponding route files
-app.use("/map", mapRouter);
+app.use("/", mapRouter);
 app.use("/users", usersRouter);
 app.use("/report",reportRouter);
 app.use("/register", registerRouter);
 app.use("/webhooks/inbound-sms", inboundSmsRouter);
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 // catch 404 and forward to error handler

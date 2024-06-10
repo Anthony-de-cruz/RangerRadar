@@ -53,37 +53,6 @@ function showVillage() {
 const showVillageButton = document.getElementById("showVillageButton");
 showVillageButton.addEventListener("click", showVillage);
 
-function registerReport(){
-    alert(
-    `
-        form#locationForm.hidden(action='/map/manual-form' method='POST')
-            <label for='lat'>Lat:</label> 
-            <input id='latBox' type='text' name='lat' placeholder='Enter lat coords here' required=''></input>
-            <br>
-            <label for='lng'>Lng:</label>  
-            <input id='lngBox' type='text' name='lng' placeholder='Enter lng coords here' required=''></input>
-            <br>
-            <input type='radio' id='formERW' name='formType' value='erw' checked></input>
-            <label for='formERW'><i class="fa-solid fa-bomb fa-fw fa-5x"></i></label>
-            <br>
-            <input type='radio' id='formPoaching' name='formType' value='poaching'></input>
-            <label for='formPoaching'><i class="fa-solid fa-crosshairs fa-fw fa-5x"></i></label>
-            <br> 
-            <input type='radio' id='formMining' name='formType' value='mining'></input>
-            <label for='formMining'><i class="fa-solid fa-helmet-safety fa-fw fa-5x"></i></label>
-            <br>
-            <input type='radio' id='formLogging' name='formType' value='logging'></input>
-            <label for='formLogging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
-            <br>
-            <button id='manualFormSubmitButton' type='submit'><i class='fa-solid fa-check'></i>
-            </button> 
-    `
-    )
-}
-
-// const registerReportButton = document.getElementById("registerReportButton");
-// registerReportButton.addEventListener("click",registerReport);
-
 function onMapClick(e) {
 
     const latlng = e.latlng;
@@ -99,7 +68,7 @@ function onMapClick(e) {
             .setLatLng(latlng)
             .setContent(
             `
-                <form action='/map/map-form' method='POST'>
+                <form action='/map-form' method='POST'>
                     <input type='hidden' name='lat' value='${latlng.lat}' readonly>
                     <input type='hidden' name='lng' value='${latlng.lng}' readonly>
                     <input type='radio' id='ERW' name='popupType' value='erw' checked></input> 
@@ -175,7 +144,7 @@ function addReportsToMap() {
             .addTo(map)
             .bindPopup(
             `
-                <form action='/map/resolve-form' method='POST' class='popup-content'>
+                <form action='/resolve-form' method='POST' class='popup-content'>
                     <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
                     <p>Lng: ${reportsData[i].longitude.toFixed(5)}</p>
                     <p>${typeIcon}</p>
@@ -185,13 +154,14 @@ function addReportsToMap() {
                 </form>
             `,
             )
+            .openPopup();
         }
         else{
             marker
             .addTo(map)
             .bindPopup(
             `
-                <form action='/map/resolve-form' method='POST' class='popup-content'>
+                <form action='/resolve-form' method='POST' class='popup-content'>
                     <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
                     <p>Lng: ${reportsData[i].longitude.toFixed(5)}</p>
                     <p>${typeIcon}</p>
@@ -200,6 +170,7 @@ function addReportsToMap() {
                 </form>
             `,
             )
+            .openPopup();
         }
         //Marker needs to be added before colour can be adjusted,
         //otherwise this causes an undefined error.
@@ -219,25 +190,6 @@ function addReportsToMap() {
                 marker._icon.classList.add("yellow");
                 break;
         }
-      
-        // let markerID = `marker-${idNum}`;
-        // markers[markerID] = marker;
-        // let currentIdNum = idNum;
-        // let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-        // if (removeMarkerButton) {
-        //     removeMarkerButton.addEventListener("click", () => {
-        //         map.removeLayer(marker);
-        //     });
-        //     marker.on('click', () => {
-        //         let removeMarkerButton = document.getElementById(`removeMarkerButton-${currentIdNum}`);
-        //         if (removeMarkerButton) {
-        //             removeMarkerButton.addEventListener("click", () => {
-        //                 map.removeLayer(marker);
-        //             });
-        //         }
-        //     });
-        // }
-        // idNum++;
     }
 }
 

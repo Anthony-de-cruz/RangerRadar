@@ -27,7 +27,7 @@ router.post("/", async (req, res, next) => {
             password,
             phone_number
         );
-        res.redirect("/map");
+        res.redirect("/");
     } catch (error) {
         console.log("ERR: Registration failed", error);
         return res.render("register", {
