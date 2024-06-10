@@ -15,6 +15,7 @@ var registerRouter = require("./routes/register");
 var loginRouter = require("./routes/login");
 var logoutRouter = require("./routes/logout");
 var livefeedRouter = require("./routes/livefeed");
+var accountRouter = require("./routes/account");
 
 var app = express();
 
@@ -41,13 +42,14 @@ app.use("/webhooks/inbound-sms", inboundSmsRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/livefeed", livefeedRouter);
+app.use("/account", accountRouter);
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get("env") === "development" ? err : {};
