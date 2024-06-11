@@ -15,6 +15,9 @@ context("Interactive Map", () => {
 
         it("can zoom out", () => {
             // Zoom out
+            for (var x = 0; x < 5; x++) {
+                cy.get(".leaflet-control-zoom-out").click();
+            }
             // Assert that the map is zoomed out
         });
 
@@ -39,7 +42,7 @@ context("Interactive Map", () => {
 
         it("can generate new report", () => {
             // Select position on the map and create report
-            cy.get("#map").click("center");
+            cy.get("#map").click(150, 300);
             cy.get("#poaching").click();
             cy.get("#mapFormSubmitButton").click();
 
