@@ -61,16 +61,24 @@ router.post(
             console.debug(alert);
             res.redirect("/");
         } else {
-            addReport(type, lat, lng);
-            res.redirect("/");
+            try{
+              await addReport(type, lat, lng);
+            } catch(error){
+              console.debug(error.message); 
+            }
+            res.redirect("/");   
         }
     }
 );
 
 router.post("/resolve-form", async (req, res, next) => {
     const id = req.body.id;
-    resolveReport(id);
-    res.redirect("/");
+    try{
+      await resolveReport(id);
+    } catch (error){
+      console.debug(error.message);
+    }
+    res.redirect("/");   
 });
 
 router.post(
@@ -110,15 +118,24 @@ router.post(
           console.debug(alert);
           res.redirect("/");
       } else {
-          addPoi(type, lat, lng);
-          res.redirect("/");
+          try{
+            await addPoi(type, lat, lng);
+            res.redirect("/");
+          } catch(error){
+            console.debug(error.message);
+          }
+          res.redirect("/");   
       }
   }
 );
 
 router.post("/remove-poi", async (req, res, next) => {
   const name = req.body.poiName;
-  removePoi(name);
+  try{
+    await removePoi(name);
+  } catch(error){
+    console.debug(error.message);
+  }
   res.redirect("/");
 });
 
