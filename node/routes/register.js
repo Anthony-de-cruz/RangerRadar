@@ -3,8 +3,9 @@ var router = express.Router();
 
 const LoginRegisterController = require("../controllers/loginRegisterController");
 
-router.get("/", function (req, res, next) {
-    res.render("register", {});
+router.get("/", LoginRegisterController.collectAuthTokenData,
+function (req, res, next) {
+    res.render("register", {loggedIn:req.loggedIn,selectedNav:"registerNav"});
 });
 
 router.post("/", async (req, res, next) => {
@@ -18,16 +19,16 @@ router.post("/", async (req, res, next) => {
             "," +
             password +
             "," +
-            phone_number
+            phone_number,
     );
 
     try {
         await LoginRegisterController.registerUser(
             username,
             password,
-            phone_number
+            phone_number,
         );
-        res.redirect("/map");
+        res.redirect("/");
     } catch (error) {
         console.log("ERR: Registration failed", error);
         return res.render("register", {

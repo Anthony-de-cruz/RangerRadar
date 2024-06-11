@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    .login-body-container
+        .login-form-container
+            h1 Account settings
+            form(action='', method='POST')
+                label(for='oldPassword') Old password
+                input#username(type='password' name='oldPassword' placeholder='Old password' required='')
+                br
+                label(for='newPassword') New password
+                input#password(type='password' name='newPassword' placeholder='New password' required='')
+                br
+                label(for='newPasswordConfirm') Confirm new password
+                input#password(type='password' name='newPasswordConfirm' placeholder='New password' required='')
+                br
+                input(type='submit' value='Save changes')
+
+
+
+            if error 
+                p error
+            
+            h3 Result: #{registerResult}
+            p
+                a.navigation-link(href='/') Back to Map

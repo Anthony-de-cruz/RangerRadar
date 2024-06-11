@@ -1,7 +1,8 @@
 context("Interactive Map", () => {
     describe("Navigation", () => {
         beforeEach(() => {
-            cy.visit("http://localhost:8080/");
+            //cy.visit("http://localhost:8080/map");
+            cy.visit('http://localhost:8080/')
         });
 
         it("can zoom in", () => {
@@ -35,11 +36,8 @@ context("Interactive Map", () => {
         beforeEach(() => {
             cy.clearDb();
             cy.seedDb();
-            cy.visit("http://localhost:8080/");
-        });
-
-        afterEach(() => {
-            cy.clearDb();
+            //cy.visit("http://localhost:8080/map");
+            cy.visit('http://localhost:8080/');
         });
 
         it("can generate new report", () => {
@@ -49,7 +47,8 @@ context("Interactive Map", () => {
             cy.get("#mapFormSubmitButton").click();
 
             // Assert that the report has been generated
-            cy.url().should("eq", "http://localhost:8080/");
+            //cy.url().should("include", "/map");
+            cy.url().should('eq', 'http://localhost:8080/')
         });
     });
 });

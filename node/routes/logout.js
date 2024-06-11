@@ -9,12 +9,12 @@ router.get(
     LoginRegisterController.checkAuthToken,
     LoginRegisterController.collectAuthTokenData,
     function (req, res, next) {
-        res.render("logout", { loggedIn: req.loggedIn, user: req.user });
+        res.render("logout", { loggedIn: req.loggedIn, user: req.user, selectedNav:"logoutNav" });
     }
 );
 
 router.post("/", function (req, res, next) {
-    return LoginRegisterController.revokeAuthToken(res).redirect("/map");
+    return LoginRegisterController.revokeAuthToken(res).redirect("/");
 });
 
 module.exports = router;

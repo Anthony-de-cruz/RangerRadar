@@ -24,7 +24,8 @@ describe("login functionality", () => {
                 //const decodedToken = jwt.verify(token, "super-secret");
                 //expect(decodedToken).to.have.property("username", "staff1");
             });
-        cy.url().should("eq", "http://localhost:8080/");
+        //cy.url().should("include", "/map");
+        cy.url().should('eq', 'http://localhost:8080/')
     });
 
     it("reject invalid username", () => {
