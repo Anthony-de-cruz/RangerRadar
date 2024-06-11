@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const LoginRegisterController = require("../controllers/loginRegisterController");
 
 /* GET users listing. */
 router.get(
