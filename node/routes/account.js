@@ -4,7 +4,7 @@ const LoginRegisterController = require("../controllers/loginRegisterController.
 var router = express.Router();
 
 router.get("/", LoginRegisterController.checkAuthToken, LoginRegisterController.collectAuthTokenData, function(req, res, next) {
-    res.render("account", {loggedIn:req.loggedIn,selectedNav:"accountNav"});
+    res.render("account", {loggedIn:req.loggedIn,selectedNav:"accountNav",title:"Account"});
 
 
 });

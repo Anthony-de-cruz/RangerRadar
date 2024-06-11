@@ -5,7 +5,7 @@ const LoginRegisterController = require("../controllers/loginRegisterController"
 
 router.get("/", LoginRegisterController.collectAuthTokenData,
 function (req, res, next) {
-    res.render("register", {loggedIn:req.loggedIn,selectedNav:"registerNav"});
+    res.render("register", {loggedIn:req.loggedIn,selectedNav:"registerNav",title:"Register"});
 });
 
 router.post("/", async (req, res, next) => {

@@ -7,7 +7,7 @@ const User = require("../models/user");
 
 /* GET login. */
 router.get("/", function (req, res, next) {
-    res.render("login", {selectedNav:"loginNav"});
+    res.render("login", {selectedNav:"loginNav",title:"Login"});
 });
 
 router.post("/", async (req, res, next) => {
@@ -30,7 +30,7 @@ router.post("/", async (req, res, next) => {
     }
 
     console.log("ERR: login not correct");
-    return res.render("login", { loginResult: "ERR: Incorrect password" });
+    return res.render("login", { loginResult: "ERR: Incorrect password"});
 });
 
 module.exports = router;
