@@ -59,8 +59,12 @@ router.post(
             console.debug(alert);
             res.render("report",{alert})
         } else {
-            addReport(type, lat, lng);
-            res.redirect("/");
+            try{
+                await addReport(type, lat, lng);
+            } catch(error){
+                console.debug(error.message);
+            }
+            res.redirect("/");   
         }
     }
 );

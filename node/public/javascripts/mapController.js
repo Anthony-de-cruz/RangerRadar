@@ -40,11 +40,11 @@ function showVillage() {
         .setLatLng(villageCentreCoords)
         .setContent(
             `
-            <div style="text-align: center;">
-                <i class="fa-solid fa-vihara" style="font-size: 24px;"></i><br>
-                Pu Nagol Community Meeting Hall
-            </div>
-        `,
+                <div style="text-align: center;">
+                    <i class="fa-solid fa-vihara" style="font-size: 24px;"></i><br>
+                    Pu Nagol Community Meeting Hall
+                </div>
+            `,
         )
         .openOn(map);
 
@@ -72,24 +72,24 @@ function onMapClick(e) {
                 .setLatLng(latlng)
                 .setContent(
                     `
-                    <form action='/map-form' method='POST'>
-                        <input type='hidden' name='lat' value='${latlng.lat}' readonly>
-                        <input type='hidden' name='long' value='${latlng.lng}' readonly>
-                        <input type='radio' id='ERW' name='popupType' value='erw' checked></input> 
-                        <label for='ERW'><i class="fa-solid fa-bomb fa-fw fa-5x"></i></label>
-                        <br>
-                        <input type='radio' id='poaching' name='popupType' value='poaching'></input>
-                        <label for='poaching'><i class="fa-solid fa-crosshairs fa-fw fa-5x"></i></label>
-                        <br> 
-                        <input type='radio' id='mining' name='popupType' value='mining'></input> 
-                        <label for='mining'><i class="fa-solid fa-helmet-safety fa-fw fa-5x"></i></label>
-                        <br>
-                        <input type='radio' id='logging' name='popupType' value='logging'></input>
-                        <label for='logging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
-                        <br>
-                        <button id='mapFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
-                    </form> 
-                `,
+                        <form action='/map-form' method='POST'>
+                            <input type='hidden' name='lat' value='${latlng.lat}' readonly>
+                            <input type='hidden' name='long' value='${latlng.lng}' readonly>
+                            <input type='radio' id='ERW' name='popupType' value='erw' checked></input> 
+                            <label for='ERW'><i class="fa-solid fa-bomb fa-fw fa-5x"></i></label>
+                            <br>
+                            <input type='radio' id='poaching' name='popupType' value='poaching'></input>
+                            <label for='poaching'><i class="fa-solid fa-crosshairs fa-fw fa-5x"></i></label>
+                            <br> 
+                            <input type='radio' id='mining' name='popupType' value='mining'></input> 
+                            <label for='mining'><i class="fa-solid fa-helmet-safety fa-fw fa-5x"></i></label>
+                            <br>
+                            <input type='radio' id='logging' name='popupType' value='logging'></input>
+                            <label for='logging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
+                            <br>
+                            <button id='mapFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
+                        </form> 
+                    `,
                 )
                 .openOn(map);
         } else{
@@ -97,15 +97,15 @@ function onMapClick(e) {
                 .setLatLng(latlng)
                 .setContent(
                     `
-                    <form action='/poi-form' method='POST'>
-                        <input type='hidden' name='lat' value='${latlng.lat}' readonly>
-                        <input type='hidden' name='long' value='${latlng.lng}' readonly>
-                        <label for='poiType'>Name:</label>
-                        <input type='text' id='poiName' name='poiName' required></input>
-                        <br>
-                        <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
-                    </form> 
-                `,
+                        <form action='/poi-form' method='POST'>
+                            <input type='hidden' name='lat' value='${latlng.lat}' readonly>
+                            <input type='hidden' name='long' value='${latlng.lng}' readonly>
+                            <label for='poiType'>Name:</label>
+                            <input type='text' id='poiName' name='poiName' required></input>
+                            <br>
+                            <button id='poiFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
+                        </form> 
+                    `,
                 )
                 .openOn(map);
         }
@@ -162,15 +162,15 @@ function addReportsToMap() {
                 .addTo(map)
                 .bindPopup(
                     `
-                <form action='/resolve-form' method='POST' class='popup-content'>
-                    <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
-                    <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
-                    <p>${typeIcon}</p>
-                    <p>${formatDateTime(reportsData[i].time_of_report)}</p>
-                    <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
-                    <button type='submit'><i class='fa-solid fa-check'></i> Resolve </button>
-                </form>
-            `,
+                        <form action='/resolve-form' method='POST' class='popup-content'>
+                            <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
+                            <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
+                            <p>${typeIcon}</p>
+                            <p>${formatDateTime(reportsData[i].time_of_report)}</p>
+                            <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
+                            <button type='submit'><i class='fa-solid fa-check'></i> Resolve </button>
+                        </form>
+                    `,
                 )
                 .openPopup();
         }
@@ -179,14 +179,14 @@ function addReportsToMap() {
             .addTo(map)
             .bindPopup(
                 `
-            <form action='/resolve-form' method='POST' class='popup-content'>
-                <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
-                <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
-                <p>${typeIcon}</p>
-                <p>${formatDateTime(reportsData[i].time_of_report)}</p>
-                <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
-            </form>
-        `,
+                    <form action='/resolve-form' method='POST' class='popup-content'>
+                        <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
+                        <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
+                        <p>${typeIcon}</p>
+                        <p>${formatDateTime(reportsData[i].time_of_report)}</p>
+                        <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
+                    </form>
+                `,
             )
             .openPopup();
         }
@@ -216,30 +216,30 @@ function addPoisToMap(){
                 .addTo(map)
                 .bindPopup(
                     `
-                <form action='/remove-poi' method='POST' class='popup-content'>
-                    <p>${poiData[i].name}</p>
-                    <p>Lat: ${poiData[i].latitude.toFixed(5)}</p>
-                    <p>Long: ${poiData[i].longitude.toFixed(5)}</p>
-                    <input type='hidden' name='poiName' value='${poiData[i].name}' readonly>
-                    <button type='submit'><i class='fa-solid fa-check'></i> Remove </button>
-                </form>
-            `,
+                        <form action='/remove-poi' method='POST' class='popup-content'>
+                            <p>${poiData[i].name}</p>
+                            <p>Lat: ${poiData[i].latitude.toFixed(5)}</p>
+                            <p>Long: ${poiData[i].longitude.toFixed(5)}</p>
+                            <input type='hidden' name='poiName' value='${poiData[i].name}' readonly>
+                            <button type='submit'><i class='fa-solid fa-check'></i> Remove </button>
+                        </form>
+                    `,
                 )
                 .openPopup();
         }
         else {
             marker
-            .addTo(map)
-            .bindPopup(
-                `
-            <form class='popup-content'>
-                <p>${poiData[i].name}</p>
-                <p>Lat: ${poiData[i].latitude.toFixed(5)}</p>
-                <p>Long: ${poiData[i].longitude.toFixed(5)}</p>
-            </form>
-        `,
-            )
-            .openPopup();
+                .addTo(map)
+                .bindPopup(
+                    `
+                        <form class='popup-content'>
+                            <p>${poiData[i].name}</p>
+                            <p>Lat: ${poiData[i].latitude.toFixed(5)}</p>
+                            <p>Long: ${poiData[i].longitude.toFixed(5)}</p>
+                        </form>
+                    `,
+                )
+                .openPopup();
         }
         marker._icon.classList.add("light-blue");
     }
