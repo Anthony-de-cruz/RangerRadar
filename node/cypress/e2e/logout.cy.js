@@ -22,6 +22,6 @@ describe("logout functionality", () => {
 
         // Assert
         cy.getCookie("authToken").should("not.exist");
-        cy.url().should("include", "/map");
+        cy.url().should("eq", "http://localhost:8080/");
     });
 });
