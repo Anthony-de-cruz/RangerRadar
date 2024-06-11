@@ -1,5 +1,7 @@
 extends layout
 block content
+  head
+    script(src='/javascripts/livefeed.js', defer)
   body
     div#report-table-container
       h2 Live Reports
@@ -13,6 +15,8 @@ block content
             th Latitude
             th Longitude
             th Resolved
+            if loggedIn
+              th Resolve Report
         tbody
           each report in reports
             tr
@@ -23,6 +27,8 @@ block content
               td= report.latitude
               td= report.longitude
               td= report.resolved ? "Yes" : "No"
+              if loggedIn
+                td= "placeholder"
     script.
         let reportsData = !{JSON.stringify(reports)}
         let isLoggedIn = !{loggedIn}

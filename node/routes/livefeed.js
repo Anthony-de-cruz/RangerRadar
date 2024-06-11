@@ -17,4 +17,22 @@ async function (req, res, next) {
     }
 });
 
+router.post("/resolve-report", async (req, res, next) => {
+    const id = req.body.id;
+    try{
+      await resolveReport(id);
+    } catch (error){
+      console.debug(error.message);
+    }
+    res.redirect("/livefeed");   
+});
+
+async function resolveReport(id) {
+    try {
+        await query("UPDATE report SET resolved=true WHERE id=$1;", [id]);
+    } catch (error) {
+        throw new Error("Failed to resolve report: " + error.message);
+    }
+}
+
 module.exports = router;
