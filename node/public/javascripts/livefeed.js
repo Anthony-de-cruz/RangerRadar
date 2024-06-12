@@ -13,7 +13,18 @@ function formatTable(){
         else{
             row.cells[1].innerHTML = `<p>Logging <i class="fa-solid fa-tree fa-fw fa-3x"></i></p>`;
         }
-        row.cells[2].innerHTML = row.cells[2].innerHTML[0].toUpperCase() + row.cells[2].innerHTML.substring(1);
+        let severityWord = row.cells[2].innerHTML[0].toUpperCase() + row.cells[2].innerHTML.substring(1);
+        let severityRank;
+        if (severityWord === "Low"){
+            severityRank = "*";
+        } 
+        else if (severityWord === "Moderate"){
+            severityRank = "**";
+        }
+        else{
+            severityRank = "***";
+        }
+        row.cells[2].innerHTML = `${severityWord} ${severityRank}`;
         row.cells[3].innerHTML = formatDateTime(row.cells[3].innerHTML);
         row.cells[4].innerHTML = parseFloat(row.cells[4].innerHTML).toFixed(5);
         row.cells[5].innerHTML = parseFloat(row.cells[5].innerHTML).toFixed(5);

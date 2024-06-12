@@ -28,6 +28,11 @@ block content
                     label(for='formLogging')
                         i(class="fa-solid fa-tree fa-fw fa-5x")
                     br
+                    select(name='severity' id='severityMenu')
+                        option(value='*') *
+                        option(value='**') **
+                        option(value="***") ***
+                    br
                     button#manualFormSubmitButton(type='submit') 
                         i( class='fa-solid fa-check')
                     br

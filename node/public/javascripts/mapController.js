@@ -59,7 +59,7 @@ let mode = mapMode.REPORT;
 
 function onMapClick(e) {
     const latlng = e.latlng;
-    if (!latlng.lat || !latlng.lng || latlng.lat >= 13 || latlng.lat < 12 || latlng.lng >= 108 || latlng.lng < 106) {
+    if (!latlng.lat || !latlng.lng || latlng.lat >= 13.7 || latlng.lat < 12.07 || latlng.lng >= 108 || latlng.lng < 106) {
         const popup = L.popup();
         popup
             .setLatLng(villageCentreCoords)
@@ -86,6 +86,14 @@ function onMapClick(e) {
                             <br>
                             <input type='radio' id='logging' name='popupType' value='logging'></input>
                             <label for='logging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
+                            <br>
+                            <br>
+                            <select name='severity' id='severityMenu'>
+                                <option value='*'>*</option>
+                                <option value='**'>**</option>
+                                <option value='***'>***</option>                               
+                            </select>
+                            <br>
                             <br>
                             <button id='mapFormSubmitButton' type='submit'><i class="fa-solid fa-check"></i> Create </button>
                         </form> 
@@ -156,7 +164,17 @@ function addReportsToMap() {
             reportsData[i].latitude,
             reportsData[i].longitude,
         ]);
-        // If they are logged in, give them the remove button
+        // If they are logged in, give them the resolve button
+        let severity;
+        if (reportsData[i].severity === "low"){
+            severity = "*"
+        }
+        else if (reportsData[i].severity === "moderate"){
+            severity = "**";
+        }
+        else{
+            severity = "***";
+        }
         if (isLoggedIn) {
             marker
                 .addTo(map)
@@ -166,6 +184,7 @@ function addReportsToMap() {
                             <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
                             <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
                             <p>${typeIcon}</p>
+                            <p style='font-size:20px'>${severity}</p>
                             <p>${formatDateTime(reportsData[i].time_of_report)}</p>
                             <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
                             <button type='submit'><i class='fa-solid fa-check'></i> Resolve </button>
@@ -183,6 +202,7 @@ function addReportsToMap() {
                         <p>Lat: ${reportsData[i].latitude.toFixed(5)}</p>
                         <p>Long: ${reportsData[i].longitude.toFixed(5)}</p>
                         <p>${typeIcon}</p>
+                        <p style='font-size:20px'>${severity}</p>
                         <p>${formatDateTime(reportsData[i].time_of_report)}</p>
                         <input type='hidden' name='id' value='${reportsData[i].id}' readonly>
                     </form>
