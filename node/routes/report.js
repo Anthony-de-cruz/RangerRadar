@@ -52,6 +52,17 @@ router.post(
         const lat = req.body.lat;
         const lng = req.body.long;
         const type = req.body.formType;
+        let severity = req.body.severity;
+
+        if(severity === "*"){
+          severity = "low";
+        }
+        else if(severity === "**"){
+          severity = "moderate";
+        }
+        else{
+          severity = "high"
+        }
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -60,7 +71,7 @@ router.post(
             res.render("report",{alert})
         } else {
             try{
-                await addReport(type, lat, lng);
+                await addReport(type, severity, lat, lng);
             } catch(error){
                 console.debug(error.message);
             }
@@ -69,14 +80,14 @@ router.post(
     }
 );
 
-async function addReport(type, lat, lng) {
+async function addReport(type, severity, lat, lng) {
     try {
         await query(
             `INSERT INTO report (report_type,severity,latitude,longitude)
       VALUES ($1, $2, $3, $4)`,
-            [type, "low", lat, lng]
+            [type, severity, lat, lng]
         );
-        console.log(`Inserted new report:${type},low,${lat},${lng}`);
+        console.log(`Inserted new report:${type},${severity},${lat},${lng}`);
     } catch (error) {
         throw error;
     }
