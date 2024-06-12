@@ -121,7 +121,7 @@ router.post(
   async (req, res, next) => {
       const lat = req.body.lat;
       const lng = req.body.long;
-      const type = req.body.poiName;
+      const name = req.body.poiName;
 
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -130,8 +130,7 @@ router.post(
           res.redirect("/");
       } else {
           try{
-            await addPoi(type, lat, lng);
-            res.redirect("/");
+            await addPoi(name, lat, lng);
           } catch(error){
             console.debug(error.message);
           }

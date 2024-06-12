@@ -3,7 +3,8 @@ extends layout
 block content
     .login-body-container
         .login-form-container
-            h1 Account settings
+            h1 RangerRadar
+            h2 Account Settings
             form(action='', method='POST')
                 label(for='oldPassword') Old password
                 input#username(type='password' name='oldPassword' placeholder='Old password' required='')
@@ -20,7 +21,5 @@ block content
 
             if error 
                 p error
-            
-            h3 Result: #{registerResult}
             p
                 a.navigation-link(href='/') Back to Map
