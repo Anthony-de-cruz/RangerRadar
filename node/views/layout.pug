@@ -14,9 +14,9 @@ html
           a#mapNav.nav-item(href='/') Map
           a#livefeedNav.nav-item(href='/livefeed') Live Feed
           a#tutorialNav.nav-item(href='/tutorial') Tutorial
-          a#registerNav.nav-item(href='/register') Register
           if loggedIn 
             a#accountNav.nav-item(href='/account') Account
+            a#registerNav.nav-item(href='/register') Register
             a#logoutNav.nav-item(href='/logout') Logout
           else 
             a#loginNav.nav-item(href='/login') Login
