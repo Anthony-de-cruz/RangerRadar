@@ -3,4 +3,4 @@ console_ui_color: transparent
 tunnels:
   website:
     proto: http
-    addr: web-service:8080
+    addr: 8080
