@@ -8,21 +8,22 @@ html
     script(src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", crossorigin="" defer) 
   body
     nav.navbar
-        a.logo.nav-item(href='/') Ranger Radar
-        .nav-links
-          a#reportNav.nav-item(href='/report') Report
-          a#mapNav.nav-item(href='/') Map
-          a#livefeedNav.nav-item(href='/livefeed') Live Feed
-          a#tutorialNav.nav-item(href='/tutorial') Tutorial
-          a#registerNav.nav-item(href='/register') Register
-          if loggedIn 
-            a#accountNav.nav-item(href='/account') Account
-            a#logoutNav.nav-item(href='/logout') Logout
-          else 
-            a#loginNav.nav-item(href='/login') Login
+      a.logo.nav-item(href='/') Ranger Radar
+      .nav-links
+        a#reportNav.nav-item(href='/report') Report
+        a#mapNav.nav-item(href='/') Map
+        a#livefeedNav.nav-item(href='/livefeed') Live Feed
+        a#tutorialNav.nav-item(href='/tutorial') Tutorial
+        a#registerNav.nav-item(href='/register') Register
+        if loggedIn 
+          a#accountNav.nav-item(href='/account') Account
+          a#logoutNav.nav-item(href='/logout') Logout
+        else 
+          a#loginNav.nav-item(href='/login') Login
+      button.menu-button(onclick='toggleMenu()')
+        i.fa-solid.fa-bars
     block content
     script.
-        !{selectedNav}.style.color = "red"
-
-
-
+      window.selectedNav = !{JSON.stringify(selectedNav)};
+      !{selectedNav}.style.color = "red"
+      !(src='/javascripts/layout.js')

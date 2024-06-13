@@ -76,16 +76,24 @@ function onMapClick(e) {
                             <input type='hidden' name='lat' value='${latlng.lat}' readonly>
                             <input type='hidden' name='long' value='${latlng.lng}' readonly>
                             <input type='radio' id='ERW' name='popupType' value='erw' checked></input> 
-                            <label for='ERW'><i class="fa-solid fa-bomb fa-fw fa-5x"></i></label>
+                            <label for='ERW'>
+                                <img class="fa-solid fa-bomb fa-fw fa-5x" src="erw.ico" alt="Icon" style="width: 50px; height: 50px;">
+                            </label>
                             <br>
                             <input type='radio' id='poaching' name='popupType' value='poaching'></input>
-                            <label for='poaching'><i class="fa-solid fa-crosshairs fa-fw fa-5x"></i></label>
+                            <label for='poaching'>
+                                <img class="fa-solid fa-crosshairs fa-fw fa-5x" src="crosshair.ico" alt="Icon" style="width: 50px; height: 50px;">
+                            </label>
                             <br> 
                             <input type='radio' id='mining' name='popupType' value='mining'></input> 
-                            <label for='mining'><i class="fa-solid fa-helmet-safety fa-fw fa-5x"></i></label>
+                            <label for='mining'>
+                                <img class="fa-solid fa-helmet-safety fa-fw fa-5x" src="pickaxe.ico" alt="Icon" style="width: 50px; height: 50px;">
+                            </label>
                             <br>
                             <input type='radio' id='logging' name='popupType' value='logging'></input>
-                            <label for='logging'><i class="fa-solid fa-tree fa-fw fa-5x"></i></label>
+                            <label for='logging'>
+                                <img class="fa-solid fa-tree fa-fw fa-5x" src="axe.ico" alt="Icon" style="width: 50px; height: 50px;">
+                            </label>
                             <br>
                             <br>
                             <select name='severity' id='severityMenu'>
@@ -149,16 +157,16 @@ function addReportsToMap() {
         let typeIcon;
         switch (type) {
             case Types.ERW:
-                typeIcon = `<i class="fa-solid fa-bomb fa-fw fa-5x"></i>`;
+                typeIcon = `<img class="fa-solid fa-bomb fa-fw fa-5x" src="erw.ico" alt="Icon" style="width: 50px; height: 50px;">`;
                 break;
             case Types.POACHING:
-                typeIcon = `<i class="fa-solid fa-crosshairs fa-fw fa-5x"></i>`;
+                typeIcon = `<img class="fa-solid fa-crosshairs fa-fw fa-5x" src="crosshair.ico" alt="Icon" style="width: 50px; height: 50px;">`;
                 break;
             case Types.MINING:
-                typeIcon = `<i class="fa-solid fa-helmet-safety fa-fw fa-5x"></i>`;
+                typeIcon = `<img class="fa-solid fa-helmet-safety fa-fw fa-5x" src="pickaxe.ico" alt="Icon" style="width: 50px; height: 50px;">`;
                 break;
             default:
-                typeIcon = `<i class="fa-solid fa-tree fa-fw fa-5x"></i>`;
+                typeIcon = `<img class="fa-solid fa-tree fa-fw fa-5x" src="axe.ico" alt="Icon" style="width: 50px; height: 50px;">`;
         }
         let marker = L.marker([
             reportsData[i].latitude,
@@ -215,11 +223,14 @@ function addReportsToMap() {
             case Types.ERW:
                 marker._icon.classList.add("red");
                 break;
+            case Types.POACHING:
+                marker._icon.classList.add("orange");
+                break;
             case Types.MINING:
-                marker._icon.classList.add("purple");
+                marker._icon.classList.add("yellow");
                 break;
             case Types.LOGGING:
-                marker._icon.classList.add("yellow");
+                marker._icon.classList.add("light-green");
                 break;
         }
     }
@@ -261,7 +272,7 @@ function addPoisToMap(){
                 )
                 .openPopup();
         }
-        marker._icon.classList.add("light-blue");
+        marker._icon.classList.add("blue");
     }
 }
 
