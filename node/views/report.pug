@@ -3,7 +3,7 @@ block content
     body
         .login-body-container
             .login-form-container
-                h1 RangerRadar
+                h1 Ranger Radar
                 h2 Make a Report
                 form(action='/report/manual-form' method='POST')
                     label(for='lat') Lat: 
@@ -14,19 +14,19 @@ block content
                     br
                     input(type='radio' id='formERW' name='formType' value='erw' checked)
                     label(for='formERW')
-                        i(class="fa-solid fa-bomb fa-fw fa-5x")
+                        img(class="fa-solid fa-bomb fa-fw fa-5x" src='erw.ico' alt='ERW Icon' style='width: 50px; height: 50px;')
                     br
                     input(type='radio' id='formPoaching' name='formType' value='poaching')
                     label(for='formPoaching')
-                        i(class="fa-solid fa-crosshairs fa-fw fa-5x")
+                        img(class="fa-solid fa-crosshairs fa-fw fa-5x" src='crosshair.ico' alt='Poaching Icon' style='width: 50px; height: 50px;')
                     br 
                     input(type='radio' id='formMining' name='formType' value='mining') 
                     label(for='formMining')
-                        i(class="fa-solid fa-helmet-safety fa-fw fa-5x")
+                        img(class="fa-solid fa-helmet-safety fa-fw fa-5x" src='pickaxe.ico' alt='Mining Icon' style='width: 50px; height: 50px;')
                     br
                     input(type='radio' id='formLogging' name='formType' value='logging')
                     label(for='formLogging')
-                        i(class="fa-solid fa-tree fa-fw fa-5x")
+                        img(class="fa-solid fa-tree fa-fw fa-5x" src='axe.ico' alt='Logging Icon' style='width: 50px; height: 50px;')
                     br
                     select(name='severity' id='severityMenu')
                         option(value='*') *
@@ -34,7 +34,7 @@ block content
                         option(value="***") ***
                     br
                     button#manualFormSubmitButton(type='submit') 
-                        i( class='fa-solid fa-check')
+                        i(class='fa-solid fa-check')
                     br
                     if alert
                         each error, i in alert
@@ -42,4 +42,3 @@ block content
                     br
                 p
                     a.navigation-link(href='/') Back to Map
-

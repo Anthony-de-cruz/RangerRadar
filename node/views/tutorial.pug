@@ -1,8 +1,12 @@
 extends layout
+
 block content
   body
     div#report-table-container
       h2 Tutorial
       table#report-table
         thead
-          div VIDEO HERE
+          tr
+            th
+              video#video-loop(autoplay loop controls, class="video")
+                source(src="tutorial.mkv" type="video/webm")

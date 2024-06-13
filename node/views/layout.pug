@@ -22,7 +22,6 @@ html
             a#loginNav.nav-item(href='/login') Login
     block content
     script.
-        !{selectedNav}.style.color = "red"
-
-
-
+      window.selectedNav = !{JSON.stringify(selectedNav)};
+      !{selectedNav}.style.color = "red"
+      !(src='/javascripts/layout.js')

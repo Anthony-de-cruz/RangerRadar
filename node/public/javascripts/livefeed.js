@@ -2,16 +2,16 @@ function formatTable(){
     let table = document.getElementById('report-table');
     for (var i = 1, row; row = table.rows[i]; i++) {
         if (row.cells[1].innerHTML === "erw"){
-            row.cells[1].innerHTML = `<p>ERW <i class="fa-solid fa-bomb fa-fw fa-3x"></i></p>`;
+            row.cells[1].innerHTML = `<p>ERW <img class="fa-solid fa-bomb fa-fw fa-3x" src="erw.ico" alt="Icon" style="width: 50px; height: 50px;"></p>`;
         }
         else if (row.cells[1].innerHTML === "poaching"){
-            row.cells[1].innerHTML = `<p>Poaching <i class="fa-solid fa-crosshairs fa-fw fa-3x"></i></p>`;
+            row.cells[1].innerHTML = `<p>Poaching <img class="fa-solid fa-crosshairs fa-fw fa-3x" src="crosshair.ico" alt="Icon" style="width: 50px; height: 50px;"></p>`;
         }
         else if (row.cells[1].innerHTML === "mining"){
-            row.cells[1].innerHTML = `<p>Mining <i class="fa-solid fa-helmet-safety fa-fw fa-3x"></i></p>`;
+            row.cells[1].innerHTML = `<p>Mining <img class="fa-solid fa-helmet-safety fa-fw fa-3x" src="pickaxe.ico" alt="Icon" style="width: 50px; height: 50px;"></p>`;
         }
         else{
-            row.cells[1].innerHTML = `<p>Logging <i class="fa-solid fa-tree fa-fw fa-3x"></i></p>`;
+            row.cells[1].innerHTML = `<p>Logging <img class="fa-solid fa-tree fa-fw fa-3x" src="axe.ico" alt="Icon" style="width: 50px; height: 50px;"></p>`;
         }
         let severityWord = row.cells[2].innerHTML[0].toUpperCase() + row.cells[2].innerHTML.substring(1);
         let severityRank;

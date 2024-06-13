@@ -2,6 +2,7 @@ body {
     background: #eee;
     height: 100%;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
 }
 
 html {
@@ -55,21 +56,25 @@ a {
 }
 
 .red {
-    filter: hue-rotate(130deg);
+    filter: hue-rotate(150deg) brightness(110%) contrast(200%);
+
 }
 
-.purple {
-    filter: hue-rotate(60deg);
+.orange {
+    filter: hue-rotate(180deg) brightness(110%) contrast(200%);
 }
 
 .yellow {
-    filter: hue-rotate(210deg);
+    filter: hue-rotate(210deg) brightness(110%) contrast(200%);
 }
 
-.light-blue {
-  filter: hue-rotate(330deg);
+.light-green {
+    filter: hue-rotate(240deg) brightness(110%) contrast(200%);
 }
 
+.blue {
+    filter: hue-rotate(0deg) brightness(110%) contrast(200%);
+}
 select {
     font-family: "FontAwesome 5 Free", "sans-serif";
 }
@@ -105,7 +110,6 @@ body {
 .nav-links {
     display: flex;
     align-items: center;
-
     justify-content: flex-end;
 }
 
@@ -123,6 +127,52 @@ body {
 .nav-item:hover {
     background-color: #ddd;
     color: red;
+}
+
+.menu-button {
+    display: none;
+    background-color: #eee;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: black;
+}
+
+.menu-button:hover {
+    background-color: #ddd;
+    color: red;
+}
+
+@media (max-width: 440px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .nav-item {
+        width: 100%;
+        text-align: left;
+        margin-left: 0;
+    }
+
+    .menu-button {
+        display: block;
+        margin-left: auto;
+    }
+
+    .logo {
+        padding: 5px 10px;
+        font-size: 16px;
+        background-color: #fff;
+        border: 1px solid #000000;
+        border-radius: 4px;
+        font-weight: bold;
+        max-width: 110px;
+    }
 }
 
 .hidden {
@@ -196,7 +246,7 @@ div.leaflet-popup-content-wrapper {
 }
 
 .fa-solid.fa-crosshairs.fa-fw.fa-5x {
-    background-color: rgb(226, 108, 61);
+    background-color: rgb(255, 127, 39);
     border: 2px solid black;
     padding: 5px;
     border-radius: 5px;
@@ -205,7 +255,7 @@ div.leaflet-popup-content-wrapper {
 }
 
 .fa-solid.fa-helmet-safety.fa-fw.fa-5x {
-    background-color: rgb(221, 179, 42);
+    background-color: yellow;
     border: 2px solid black;
     padding: 5px;
     border-radius: 5px;
@@ -214,7 +264,7 @@ div.leaflet-popup-content-wrapper {
 }
 
 .fa-solid.fa-tree.fa-fw.fa-5x {
-    background-color: yellow;
+    background-color: lightgreen;
     border: 2px solid black;
     padding: 5px;
     border-radius: 5px;
@@ -264,3 +314,10 @@ div.leaflet-popup-content-wrapper {
 .popup-content button {
     display: inline-block;
 }
+
+video {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%;
+    height: auto;
+  }
