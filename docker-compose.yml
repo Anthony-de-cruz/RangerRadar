@@ -33,10 +33,17 @@ services:
     image: ngrok/ngrok:latest
     #restart: unless-stopped
     command:
-      - "start"
-      - "--all"
+      - "tunnel"
+      - "--label"
+      - "edge=edghts_2hICeyLAxhcrgGHRfCRrmt4KjId"
+      - "rr-frontend:8080"
       - "--config"
       - "/etc/ngrok.yml,/run/secrets/ngrok-auth-token.yml"
+    # command:
+    #   - "start"
+    #   - "--label edge=edghts_2hICeyLAxhcrgGHRfCRrmt4KjId"
+    #   - "--config"
+    #   - "/etc/ngrok.yml,/run/secrets/ngrok-auth-token.yml"
     profiles: [http_tunnel]
     links:
       - "rr-frontend:web-service"

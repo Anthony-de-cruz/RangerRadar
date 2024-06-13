@@ -3,10 +3,18 @@ var router = express.Router();
 
 const LoginRegisterController = require("../controllers/loginRegisterController");
 
-router.get("/", LoginRegisterController.collectAuthTokenData,
-function (req, res, next) {
-    res.render("register", {loggedIn:req.loggedIn,selectedNav:"registerNav",title:"Register"});
-});
+router.get(
+    "/",
+    LoginRegisterController.checkAuthToken,
+    LoginRegisterController.collectAuthTokenData,
+    function (req, res, next) {
+        res.render("register", {
+            loggedIn: req.loggedIn,
+            selectedNav: "registerNav",
+            title: "Register",
+        });
+    },
+);
 
 router.post("/", async (req, res, next) => {
     const username = req.body.username;
